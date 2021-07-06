@@ -1,0 +1,42 @@
+// Copyright (c) 2021 IBM Corporation and others.
+// Licensed under Creative Commons Attribution-NoDerivatives
+// 4.0 International (CC BY-ND 4.0)
+//   https://creativecommons.org/licenses/by-nd/4.0/
+//
+// Contributors:
+//     IBM Corporation
+//
+:projectid: graphql-client
+:page-layout: guide-multipane
+:page-duration: 25 minutes
+:page-releasedate: 2021-11-11
+:page-essential: false
+:page-description: Learn how to use a GraphQL client to run GraphQL queries and mutations.
+:page-tags: ['MicroProfile', 'Jakarta EE']
+:page-related-guides: ['graphql-intro']
+:page-permalink: /guides/{projectid}
+:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
+:imagesdir: /img/guide/{projectid}
+:source-highlighter: prettify
+:page-seo-title: Implementing a GraphQL client microservice to run GraphQL queries and mutations
+:page-seo-description: A tutorial with examples on how to use the third-party Smallrye GraphQL client API to run GraphQL queries and mutations
+:guide-author: Open Liberty
+= Running GraphQL queries and mutations using a GraphQL client
+
+[.hidden]
+NOTE: This repository contains the guide documentation source. To view the guide in published form,
+view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
+
+Learn how to use a GraphQL client to run GraphQL queries and mutations.
+
+== What you'll learn
+
+
+
+== Great work! You're done!
+
+You just created a GraphQL client microservce!
+
+include::{common-includes}/attribution.adoc[]
+
+// ------------ END ------------
