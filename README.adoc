@@ -31,6 +31,33 @@ Learn how to use a GraphQL client to run GraphQL queries and mutations.
 
 == What you'll learn
 
+You will learn how to create a GraphQL client microservice.
+
+GraphQL is an open source data query language.
+Unlike REST APIs, each `POST` request sent to a GraphQL service goes to a single HTTP endpoint.
+To learn more about GraphQL, see our https://openliberty.io/guides/graphql-intro.html[GraphQL intro guide^].
+
+You'll start with the GraphQL service created as part of our GraphQL intro guide.
+You'll then use the https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL client^]
+to create a `system` microservice that will make requests to the GraphQL service.
+
+== Additional prerequisites
+
+Before you begin, Docker needs to be installed.
+For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^].
+You will build and run the application in Docker containers.
+
+Make sure to start your Docker daemon before you proceed.
+
+///////////////////////////
+// Getting started
+///////////////////////////
+
+[role='command']
+include::{common-includes}/gitclone.adoc[]
+
+// No "Try what you'll build" because of multiple services, will take too long
+
 
 
 == Great work! You're done!
