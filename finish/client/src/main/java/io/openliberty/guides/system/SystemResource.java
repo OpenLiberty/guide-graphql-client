@@ -12,6 +12,7 @@
 // end::copyright[]
 package io.openliberty.guides.system;
 
+import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -22,27 +23,34 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import io.openliberty.guides.graphql.models.JavaInfo;
+import io.openliberty.guides.graphql.models.SystemInfo;
+import io.openliberty.guides.system.client.SystemClient;
+import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 
 @ApplicationScoped
 @Path("properties")
-public class SystemPropertiesResource {
+public class SystemResource {
+
+    // tag::clientBuilder[]
+    private SystemClient sc = GraphQlClientBuilder.newBuilder()
+                                                  .build(SystemClient.class);
+    // end::clientBuilder[]
 
     @GET
-    @Path("/{property}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String queryProperty(@PathParam("property") String property) {
-        return System.getProperty(property);
+    @Produces(MediaType.APPLICATION_JSON)
+    public SystemInfo querySystem() {
+        // tag::clientUsed1[]
+        return sc.system();
+        // end::clientUsed1[]
     }
 
     @GET
-    @Path("java")
-    @Produces(MediaType.APPLICATION_JSON)
-    public JavaInfo java() {
-        JavaInfo javaInfo = new JavaInfo();
-        javaInfo.setVersion(System.getProperty("java.version"));
-        javaInfo.setVendor(System.getProperty("java.vendor"));
-        return javaInfo;
+    @Path("{property}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String queryProperty(@PathParam("property") String property) {
+        // tag::clientUsed2[]
+        return sc.property(property);
+        // end::clientUsed2[]
     }
 
     @POST
@@ -50,8 +58,16 @@ public class SystemPropertiesResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response editNote(String text) {
-        System.setProperty("note", text);
+        // tag::clientUsed3[]
+        sc.editNote(text);
+        // end::clientUsed3[]
         return Response.ok().build();
     }
 
+    @GET
+    @Path("names")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Set<String> propertyList() {
+        return System.getProperties().stringPropertyNames();
+    }
 }
