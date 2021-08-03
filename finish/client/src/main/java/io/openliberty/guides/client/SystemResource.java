@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.system;
+package io.openliberty.guides.client;
 
 import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
@@ -24,12 +24,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import io.openliberty.guides.graphql.models.SystemInfo;
-import io.openliberty.guides.system.client.SystemClient;
+import io.openliberty.guides.client.api.SystemClient;
 import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 
 @ApplicationScoped
 @Path("properties")
-public class SystemResource {
+public class ClientResource {
 
     // tag::clientBuilder[]
     private SystemClient sc = GraphQlClientBuilder.newBuilder()

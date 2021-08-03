@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.system.client;
+package io.openliberty.guides.client.api;
 
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
@@ -21,7 +21,7 @@ import io.smallrye.graphql.client.typesafe.api.GraphQlClientApi;
 // tag::clientApi[]
 @GraphQlClientApi
 // end::clientApi[]
-public interface SystemClient {
+public interface GraphQlClient {
 
     // tag::systemInfo[]
     SystemInfo system();
