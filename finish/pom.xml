@@ -10,9 +10,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>models</module>
         <module>client</module>
+        <module>models</module>
         <module>graphql</module>
         <module>inventory</module>
+        <module>system</module>
     </modules>
 </project>
