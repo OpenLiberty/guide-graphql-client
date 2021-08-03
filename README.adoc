@@ -56,9 +56,9 @@ Make sure to start your Docker daemon before you proceed.
 // Getting started
 ///////////////////////////
 
-== Implementing system service
+== Implementing client service
 
-Navigate to the `start/system` directory 
+Navigate to the `start/client` directory to begin.
 
 [role='command']
 include::{common-includes}/gitclone.adoc[]

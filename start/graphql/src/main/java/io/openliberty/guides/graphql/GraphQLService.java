@@ -77,6 +77,51 @@ public class GraphQLService {
     }
     // end::getSystemInfo[]
 
+    // tag::mutation[]
+    @Mutation("editNote")
+    // end::mutation[]
+    // tag::description2[]
+    @Description("Changes the note set for the system")
+    // end::description2[]
+    // tag::editNoteFunction[]
+    // tag::editNoteHeader[]
+    public boolean editNote(@Name("hostname") String hostname,
+                            @Name("note") String note)
+        throws ProcessingException, UnknownUriException {
+    // end::editNoteHeader[]
+        SystemClient systemClient = getSystemClient(hostname);
+        systemClient.editNote(note);
+        return true;
+    }
+    // end::editNoteFunction[]
+
+    // tag::query2[]
+    @Query("systemLoad")
+    // end::query2[]
+    // tag::description3[]
+    @Description("Gets system load data from the systems")
+    // end::description3[]
+    // tag::getSystemLoad[]
+    // tag::getSystemLoadHeader[]
+    public SystemLoad[] getSystemLoad(@Name("hostnames") String[] hostnames)
+        throws ProcessingException, UnknownUriException {
+    // end::getSystemLoadHeader[]
+        if (hostnames == null || hostnames.length == 0) {
+            return new SystemLoad[0];
+        }
+
+        List<SystemLoad> systemLoads = new ArrayList<SystemLoad>(hostnames.length);
+
+        for (String hostname : hostnames) {
+            SystemLoad systemLoad = new SystemLoad();
+            systemLoad.setHostname(hostname);
+            systemLoads.add(systemLoad);
+        }
+
+        return systemLoads.toArray(new SystemLoad[systemLoads.size()]);
+    }
+    // end::getSystemLoad[]
+
     // Nested objects, these can be expensive to obtain
     @NonNull
     // tag::os[]
@@ -104,51 +149,6 @@ public class GraphQLService {
         return systemClient.java();
     }
     // end::javaFunction[]
-
-    // tag::mutation[]
-    @Mutation("editNote")
-    // end::mutation[]
-    // tag::description2[]
-    @Description("Changes the note set for the system")
-    // end::description2[]
-    // tag::editNoteFunction[]
-    // tag::editNoteHeader[]
-    public boolean editNote(@Name("hostname") String hostname,
-                            @Name("note") String note)
-        throws ProcessingException, UnknownUriException {
-    // end::editNoteHeader[]
-        SystemClient systemClient = getSystemClient(hostname);
-        systemClient.editNote(note);
-        return true;
-    }
-    // end::editNoteFunction[]
-
-    // tag::query1[]
-    @Query("systemLoad")
-    // end::query1[]
-    // tag::description3[]
-    @Description("Gets system load data from the systems")
-    // end::description3[]
-    // tag::getSystemLoad[]
-    // tag::getSystemLoadHeader[]
-    public SystemLoad[] getSystemLoad(@Name("hostnames") String[] hostnames)
-        throws ProcessingException, UnknownUriException {
-    // end::getSystemLoadHeader[]
-        if (hostnames == null || hostnames.length == 0) {
-            return new SystemLoad[0];
-        }
-
-        List<SystemLoad> systemLoads = new ArrayList<SystemLoad>(hostnames.length);
-
-        for (String hostname : hostnames) {
-            SystemLoad systemLoad = new SystemLoad();
-            systemLoad.setHostname(hostname);
-            systemLoads.add(systemLoad);
-        }
-
-        return systemLoads.toArray(new SystemLoad[systemLoads.size()]);
-    }
-    // end::getSystemLoad[]
 
     // tag::loadData[]
     // tag::loadDataHeader[]
