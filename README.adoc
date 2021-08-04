@@ -63,13 +63,45 @@ include::{common-includes}/gitclone.adoc[]
 
 == Implementing a GraphQL client
 
-Navigate to the `start/client` directory to begin.
+Navigate to the `start` directory to begin.
 
 The https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL client^]
 will be used to implement the GraphQL client service.
 A client interface will be created.
 The interface will contain a function for each resolver available in the GraphQL service.
 The JSON objects returned by the GraphQL service will be converted to Java objects.
+
+[role="code_command hotspot file=0" ,subs="quotes"]
+----
+#Replace the Maven project file.#
+`client/pom.xml`
+----
+
+The [hotspot=graphQLClientDependency file=0]`smallrye-graphql-client` dependency 
+includes the classes used to interact with a GraphQL service.
+
+[role="code_command hotspot file=1" ,subs="quotes"]
+----
+#Replace the server configuration file.#
+`client/src/main/liberty/config/server.xml`
+----
+
+The [hotspot=url file=1]`graphql.server` variable is defined in the [hotspot file=1]`server.xml` file.
+This variable defines where the GraphQL client will make its requests to.
+
+// file 0
+pom.xml
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/client/pom.xml[]
+----
+
+// file 1
+server.xml
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/client/src/main/liberty/config/server.xml[]
+----
 
 == Great work! You're done!
 
