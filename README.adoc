@@ -56,16 +56,20 @@ Make sure to start your Docker daemon before you proceed.
 // Getting started
 ///////////////////////////
 
-== Implementing client service
-
-Navigate to the `start/client` directory to begin.
-
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
 // No "Try what you'll build" because of multiple services, will take too long
 
+== Implementing a GraphQL client
 
+Navigate to the `start/client` directory to begin.
+
+The https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL client^]
+will be used to implement the GraphQL client service.
+A client interface will be created.
+The interface will contain a function for each resolver available in the GraphQL service.
+The JSON objects returned by the GraphQL service will be converted to Java objects.
 
 == Great work! You're done!
 
