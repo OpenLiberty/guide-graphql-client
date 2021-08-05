@@ -89,6 +89,30 @@ includes the classes used to interact with a GraphQL service.
 The [hotspot=url file=1]`graphql.server` variable is defined in the [hotspot file=1]`server.xml` file.
 This variable defines where the GraphQL client will make its requests to.
 
+[role="code_command hotspot file=2" ,subs="quotes"]
+----
+#Create the `GraphQlClient` interface.#
+`client/src/main/java/io/openliberty/guides/client/api/GraphQlClient.java`
+----
+
+The [hotspot file=2]`GraphQlClient` interface is annotated with the
+[hotspot=clientApi file=2]`@GraphQlClient` annotation.
+This annotation denotes that this interface will be used to create a typesafe GraphQL client.
+
+Inside the interface, a function header is written for each resolver available in the GraphQL service.
+The names of the functions match the names of the resolvers in the GraphQL schema.
+Resolvers that require input variables have the input variables passed in using the
+[hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=2]`@Name` annotation on the function inputs.
+The return types of the functions should match those of the GraphQL resolvers.
+
+For example, the [hotspot=systemInfo file=2]`system()` function maps to the `system` resolver.
+The resolver returns a `system` object, which is described by the `SystemInfo` class.
+Thus, the [hotspot=systemInfo file=2]`system()` function returns the type `SystemInfo`.
+
+Because the [hotspot=editNote file=2]`editNote` resolver is for a `mutation` operation,
+it has the [hotspot=mutationTag file=2]`@Mutation` annotation on it.
+If this annotation was not placed on the function, it would be treated as if it mapped to a `query` operation.
+
 // file 0
 pom.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
@@ -101,6 +125,13 @@ server.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/client/src/main/liberty/config/server.xml[]
+----
+
+// file 2
+GraphQlClient.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/client/src/main/java/io/openliberty/guides/client/api/GraphQlClient.java[]
 ----
 
 == Great work! You're done!

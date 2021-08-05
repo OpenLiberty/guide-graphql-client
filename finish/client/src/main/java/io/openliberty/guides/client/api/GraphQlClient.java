@@ -16,6 +16,7 @@ import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
 
 import io.openliberty.guides.graphql.models.SystemInfo;
+import io.openliberty.guides.graphql.models.SystemLoad;
 import io.smallrye.graphql.client.typesafe.api.GraphQlClientApi;
 
 // tag::clientApi[]
@@ -24,12 +25,12 @@ import io.smallrye.graphql.client.typesafe.api.GraphQlClientApi;
 public interface GraphQlClient {
 
     // tag::systemInfo[]
-    SystemInfo system();
+    SystemInfo system(@Name("hostname") String hostname);
     // end::systemInfo[]
 
-    // tag::property[]
-    String property(@Name("name") String propertyName);
-    // end::property[]
+    // tag::systemLoad[]
+    SystemLoad[] systemLoad(@Name("hostnames") String[] hostnames);
+    // end::systemLoad[]
 
     // tag::mutationTag[]
     @Mutation

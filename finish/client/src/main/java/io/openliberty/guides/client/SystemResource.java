@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import io.openliberty.guides.graphql.models.SystemInfo;
-import io.openliberty.guides.client.api.SystemClient;
+import io.openliberty.guides.client.api.GraphQlClient;
 import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 
 @ApplicationScoped
