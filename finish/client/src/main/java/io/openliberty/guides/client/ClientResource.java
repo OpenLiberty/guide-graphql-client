@@ -33,8 +33,8 @@ import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 public class ClientResource {
 
     // tag::clientBuilder[]
-    private SystemClient sc = GraphQlClientBuilder.newBuilder()
-                                                  .build(SystemClient.class);
+    private GraphQlClient gc = GraphQlClientBuilder.newBuilder()
+                                                  .build(GraphQlClient.class);
     // end::clientBuilder[]
 
     @GET
@@ -42,7 +42,7 @@ public class ClientResource {
     @Produces(MediaType.APPLICATION_JSON)
     public SystemInfo querySystem(@PathParam("hostname") String hostname) {
         // tag::clientUsed1[]
-        return sc.system(hostname);
+        return gc.system(hostname);
         // end::clientUsed1[]
     }
 
@@ -52,7 +52,7 @@ public class ClientResource {
     public SystemLoad[] querySystemLoad(@PathParam("hostnames") String hostnames) {
         String[] hostnameArray = hostnames.split(",");
         // tag::clientUsed2[]
-        return sc.systemLoad(hostnameArray);
+        return gc.systemLoad(hostnameArray);
         // end::clientUsed2[]
     }
 
@@ -61,7 +61,7 @@ public class ClientResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String queryProperty(@PathParam("property") String property) {
         // tag::clientUsed3[]
-        return sc.property(property);
+        return gc.property(property);
         // end::clientUsed3[]
     }
 
@@ -71,9 +71,12 @@ public class ClientResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response editNote(String text) {
         // tag::clientUsed3[]
-        sc.editNote(text);
+        if (gc.editNote(text)) {
         // end::clientUsed3[]
-        return Response.ok().build();
+            return Response.ok().build();
+        } else {
+            return Response.serverError().build();
+        }
     }
 
     @GET
