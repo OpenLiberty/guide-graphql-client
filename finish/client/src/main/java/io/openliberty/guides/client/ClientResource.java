@@ -24,6 +24,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import io.openliberty.guides.graphql.models.SystemInfo;
+import io.openliberty.guides.graphql.models.SystemLoad;
 import io.openliberty.guides.client.api.GraphQlClient;
 import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 
@@ -37,20 +38,31 @@ public class ClientResource {
     // end::clientBuilder[]
 
     @GET
+    @Path("{hostname}")
     @Produces(MediaType.APPLICATION_JSON)
-    public SystemInfo querySystem() {
+    public SystemInfo querySystem(@PathParam("hostname") String hostname) {
         // tag::clientUsed1[]
-        return sc.system();
+        return sc.system(hostname);
         // end::clientUsed1[]
+    }
+
+    @GET
+    @Path("{hostnames}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public SystemLoad[] querySystemLoad(@PathParam("hostnames") String hostnames) {
+        String[] hostnameArray = hostnames.split(",");
+        // tag::clientUsed2[]
+        return sc.systemLoad(hostnameArray);
+        // end::clientUsed2[]
     }
 
     @GET
     @Path("{property}")
     @Produces(MediaType.TEXT_PLAIN)
     public String queryProperty(@PathParam("property") String property) {
-        // tag::clientUsed2[]
+        // tag::clientUsed3[]
         return sc.property(property);
-        // end::clientUsed2[]
+        // end::clientUsed3[]
     }
 
     @POST
