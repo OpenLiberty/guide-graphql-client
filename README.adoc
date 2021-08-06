@@ -40,6 +40,7 @@ To learn more about GraphQL, see our https://openliberty.io/guides/graphql-intro
 You'll start with the GraphQL service created as part of our GraphQL intro guide.
 You'll then use the https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL client^]
 to create a `client` microservice that will make requests to the GraphQL service.
+The results of the requests will be displayed at REST endpoints.
 OpenAPI will be used to help make the requests and display the data.
 To learn more about OpenAPI, check out the 
 https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
@@ -113,6 +114,25 @@ Because the [hotspot=editNote file=2]`editNote` resolver is for a `mutation` ope
 it has the [hotspot=mutationTag file=2]`@Mutation` annotation on it.
 If this annotation was not placed on the function, it would be treated as if it mapped to a `query` operation.
 
+[role="code_command hotspot file=3" ,subs="quotes"]
+----
+#Create the `ClientResource` class.#
+`client/src/main/java/io/openliberty/guides/client/ClientResource.java`
+----
+
+The [hotspot file=3]`ClientResource` class uses the [hotspot file=2]`GraphQlClient` interface
+to make requests to the GraphQL service and display the results.
+In a real application, you would be making requests to an external GraphQL API,
+or you would be doing further manipulation of the data after retrieval.
+
+The `GraphQlClient` interface is used in a [hotspot=clientBuilder file=3]`GraphQLClientBuilder`
+to create an object that implements the interface and can interact with the GraphQL service.
+It will make requests to the URL specified by the [hotspot=url file=1]`graphql.server` variable
+in the `server.xml` in the previous steps of this guide.
+The client is then used in the [hotspot=clientUsed1 file=3]`querySystem()`,
+[hotspot=clientUsed2 file=3]`querySystemLoad()`, and[hotspot=clientUsed3 file=3]`editNote()` functions.
+
+
 // file 0
 pom.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
@@ -133,6 +153,15 @@ GraphQlClient.java
 ----
 include::finish/client/src/main/java/io/openliberty/guides/client/api/GraphQlClient.java[]
 ----
+
+// file 3
+ClientResource.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/client/src/main/java/io/openliberty/guides/client/ClientResource.java[]
+----
+
+== Accessing the GraphQL client
 
 == Great work! You're done!
 

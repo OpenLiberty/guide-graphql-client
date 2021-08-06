@@ -56,15 +56,6 @@ public class ClientResource {
         // end::clientUsed2[]
     }
 
-    @GET
-    @Path("{property}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String queryProperty(@PathParam("property") String property) {
-        // tag::clientUsed3[]
-        return gc.property(property);
-        // end::clientUsed3[]
-    }
-
     @POST
     @Path("note")
     @Consumes(MediaType.TEXT_PLAIN)
