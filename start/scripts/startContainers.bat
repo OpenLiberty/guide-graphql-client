@@ -23,3 +23,10 @@ start /b docker run -d ^
   --name=graphql ^
   --rm ^
   graphql:1.0-SNAPSHOT &
+
+start /b docker run -d ^
+  -p 9080:9080 ^
+  --network=%NETWORK% ^
+  --name=graphql-client ^
+  --rm ^
+  client:1.0-SNAPSHOT &
