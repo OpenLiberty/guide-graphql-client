@@ -38,7 +38,7 @@ public class ClientResource {
     // end::clientBuilder[]
 
     @GET
-    @Path("{hostname}")
+    @Path("system/hostname")
     @Produces(MediaType.APPLICATION_JSON)
     public SystemInfo querySystem(@PathParam("hostname") String hostname) {
         // tag::clientUsed1[]
@@ -47,7 +47,7 @@ public class ClientResource {
     }
 
     @GET
-    @Path("{hostnames}")
+    @Path("systemLoad/{hostnames}")
     @Produces(MediaType.APPLICATION_JSON)
     public SystemLoad[] querySystemLoad(@PathParam("hostnames") String hostnames) {
         String[] hostnameArray = hostnames.split(",");
