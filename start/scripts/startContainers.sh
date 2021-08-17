@@ -29,7 +29,7 @@ docker run -d \
   -p 9080:9080 \
   --network=$NETWORK \
   --name=graphql-client \
-  -rm \
+  --rm \
   client:1.0-SNAPSHOT &
 
 wait
