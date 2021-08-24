@@ -38,7 +38,7 @@ public class ClientResource {
     // end::clientBuilder[]
 
     @GET
-    @Path("system/hostname")
+    @Path("system/{hostname}")
     @Produces(MediaType.APPLICATION_JSON)
     public SystemInfo querySystem(@PathParam("hostname") String hostname) {
         // tag::clientUsed1[]
