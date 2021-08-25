@@ -25,21 +25,18 @@ import javax.ws.rs.core.Response;
 import io.openliberty.guides.graphql.models.JavaInfo;
 
 @ApplicationScoped
-@Path("properties")
+@Path("/")
 public class SystemPropertiesResource {
 
-    // tag::queryProperty[]
     @GET
-    @Path("/{property}")
+    @Path("properties/{property}")
     @Produces(MediaType.TEXT_PLAIN)
     public String queryProperty(@PathParam("property") String property) {
         return System.getProperty(property);
     }
-    // end::queryProperty[]
 
-    // tag::java[]
     @GET
-    @Path("java")
+    @Path("properties/java")
     @Produces(MediaType.APPLICATION_JSON)
     public JavaInfo java() {
         JavaInfo javaInfo = new JavaInfo();
@@ -47,9 +44,7 @@ public class SystemPropertiesResource {
         javaInfo.setVendor(System.getProperty("java.vendor"));
         return javaInfo;
     }
-    // end::java[]
 
-    // tag::note[]
     @POST
     @Path("note")
     @Consumes(MediaType.TEXT_PLAIN)
@@ -58,6 +53,5 @@ public class SystemPropertiesResource {
         System.setProperty("note", text);
         return Response.ok().build();
     }
-    // end::note[]
 
 }
