@@ -25,16 +25,16 @@ import javax.ws.rs.core.Response;
 
 import io.openliberty.guides.graphql.models.SystemInfo;
 import io.openliberty.guides.graphql.models.SystemLoad;
-import io.openliberty.guides.client.api.GraphQlClient;
-import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
+import io.openliberty.guides.client.api.GraphQLClient;
+import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
 
 @ApplicationScoped
 @Path("properties")
 public class ClientResource {
 
     // tag::clientBuilder[]
-    private GraphQlClient gc = GraphQlClientBuilder.newBuilder()
-                                                  .build(GraphQlClient.class);
+    private GraphQLClient gc = TypesafeGraphQLClientBuilder.newBuilder()
+                                                           .build(GraphQLClient.class);
     // end::clientBuilder[]
 
     @GET
