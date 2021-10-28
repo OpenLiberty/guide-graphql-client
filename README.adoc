@@ -37,9 +37,13 @@ GraphQL is an open source data query language.
 Unlike REST APIs, each `POST` request sent to a GraphQL service goes to a single HTTP endpoint.
 To learn more about GraphQL, see our https://openliberty.io/guides/graphql-intro.html[GraphQL intro guide^].
 
-You'll start with the GraphQL service created as part of our GraphQL intro guide.
-You'll then use the https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL client^]
+You will start with the GraphQL service created as part of our https://openliberty.io/guides/graphql-intro.html[GraphQL intro guide^].
+Then, you'll use the https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL client^]
 to create a `client` microservice that will make requests to the GraphQL service.
+The GraphQL service created as part of our https://openliberty.io/guides/graphql-intro.html[GraphQL intro guide^]. The GraphQL application retrieves data from multiple `system` services. The `client` makes requests to the GraphQL service, which then makes requests to the `system` services.
+
+https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL client^] supports two types of clients: `typesafe` and `dynamic` clients. A `typesafe` client provides ease of use and a high-level approach, while a `dynamic` client provides a more customizable and low-level approach to handle operations and responses. You will implement a `typesafe client` microservice. 
+
 The results of the requests will be displayed at REST endpoints.
 OpenAPI will be used to help make the requests and display the data.
 To learn more about OpenAPI, check out the 
@@ -211,6 +215,28 @@ include::{common-includes}/os-tabs.adoc[]
 The containers may take some time to become available.
 
 == Accessing the application
+
+== Tearing down the environment
+
+When you're done checking out the application, run the following script to stop the application:
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+.\scripts\stopContainers.bat
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+```
+./scripts/stopContainers.sh
+```
+--
 
 == Great work! You're done!
 
