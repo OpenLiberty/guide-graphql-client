@@ -17,12 +17,12 @@ import org.eclipse.microprofile.graphql.Name;
 
 import io.openliberty.guides.graphql.models.SystemInfo;
 import io.openliberty.guides.graphql.models.SystemLoad;
-import io.smallrye.graphql.client.typesafe.api.GraphQLClientApi;
+import io.smallrye.graphql.client.typesafe.api.GraphQlClientApi;
 
 // tag::clientApi[]
-@GraphQLClientApi
+@GraphQlClientApi
 // end::clientApi[]
-public interface GraphQLClient {
+public interface GraphQlClient {
 
     // tag::systemInfo[]
     SystemInfo system(@Name("hostname") String hostname);
