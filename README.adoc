@@ -134,7 +134,7 @@ to create an object that implements the interface and can interact with the Grap
 It will make requests to the URL specified by the [hotspot=url file=1]`graphql.server` variable
 in the `server.xml` in the previous steps of this guide.
 The client is then used in the [hotspot=clientUsed1 file=3]`querySystem()`,
-[hotspot=clientUsed2 file=3]`querySystemLoad()`, and[hotspot=clientUsed3 file=3]`editNote()` functions.
+[hotspot=clientUsed2 file=3]`querySystemLoad()`, and [hotspot=clientUsed3 file=3]`editNote()` functions.
 
 
 // file 0
@@ -212,9 +212,65 @@ include::{common-includes}/os-tabs.adoc[]
 ```
 --
 
-The containers may take some time to become available.
+The containers may take some time to become available. 
+Once your application is up and running, open your browser and check out your service by going to http://localhost:9084[^].
 
 == Accessing the application
+
+Go to the http://localhost:9084/openapi/ui/[^] URL to see the OpenAPI user interface (UI) 
+that provides API documentation and a GraphQL client to test the API endpoints that you create.
+
+**Try the Retrieve operations**
+
+From the OpenAPI UI, test the read operation at the `GET /client/properties/names` endpoint. 
+This request retrieves all the names of system properties.
+
+The response is similar to the following example:
+
+[role='no_copy']
+----
+[
+  "osgi.checkConfiguration",
+  "awt.toolkit",
+  "file.encoding.pkg",
+  "java.specification.version",
+  "jdk.extensions.version",
+  "com.ibm.ws.beta.edition",
+  "sun.jnu.encoding",
+  "wlp.install.dir",
+  "wlp.user.dir.isDefault",
+  "java.class.path",
+  "wlp.lib.dir",
+  "java.vm.vendor",
+  "wlp.workarea.dir",
+   ...
+]
+----
+
+From the OpenAPI UI, test the read operation at the `GET /client/properties/system/{hostname}` endpoint. 
+This request retrieves the system properties for the `hostname` specified.
+
+When the `hostname` is specified to `system-java8`. The response is similar to the following example:
+
+[role='no_copy']
+----
+[
+  "osgi.checkConfiguration",
+  "awt.toolkit",
+  "file.encoding.pkg",
+  "java.specification.version",
+  "jdk.extensions.version",
+  "com.ibm.ws.beta.edition",
+  "sun.jnu.encoding",
+  "wlp.install.dir",
+  "wlp.user.dir.isDefault",
+  "java.class.path",
+  "wlp.lib.dir",
+  "java.vm.vendor",
+  "wlp.workarea.dir",
+   ...
+]
+----
 
 == Tearing down the environment
 
