@@ -25,6 +25,7 @@ import javax.ws.rs.core.Response;
 
 import io.openliberty.guides.graphql.models.SystemInfo;
 import io.openliberty.guides.graphql.models.SystemLoad;
+import io.openliberty.guides.graphql.models.NoteInfo;
 import io.openliberty.guides.client.api.GraphQlClient;
 import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
 
@@ -58,11 +59,11 @@ public class ClientResource {
 
     @POST
     @Path("note")
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response editNote(String text) {
+    public Response editNote(NoteInfo text) {
         // tag::clientUsed3[]
-        if (gc.editNote(text)) {
+        if (gc.editNote(text.getHostname(), text.getText())) {
         // end::clientUsed3[]
             return Response.ok().build();
         } else {

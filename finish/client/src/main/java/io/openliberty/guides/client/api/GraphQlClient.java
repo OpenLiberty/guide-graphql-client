@@ -36,7 +36,7 @@ public interface GraphQlClient {
     @Mutation
     // end::mutationTag[]
     // tag::editNote[]
-    boolean editNote(@Name("note") String note);
+    boolean editNote(@Name("hostname") String hostname, @Name("note") String note);
     // end::editNote[]
 
 }
