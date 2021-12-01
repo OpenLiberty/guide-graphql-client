@@ -247,30 +247,70 @@ The response is similar to the following example:
 ]
 ----
 
-From the OpenAPI UI, test the read operation at the `GET /client/properties/system/{hostname}` endpoint. 
+Next, test the read operation at the `GET /client/properties/system/{hostname}` endpoint. 
 This request retrieves the system properties for the `hostname` specified.
 
 When the `hostname` is specified to `system-java8`. The response is similar to the following example:
 
 [role='no_copy']
 ----
+{
+  "hostname": "system-java8",
+  "java": {
+    "vendor": "International Business Machines Corporation",
+    "version": "1.8.0_312"
+  },
+  "osArch": "amd64",
+  "osName": "Linux",
+  "osVersion": "5.10.25-linuxkit",
+  "systemMetrics": {
+    "heapSize": 2086993920,
+    "nonHeapSize": -1,
+    "processors": 8
+  },
+  "username": "default"
+}
+----
+
+You can try out the operations using the hostname `system-java11` as well. 
+
+You can retrieve the information about the resource usage of any number of system services at the `GET /client/properties/systemLoad/{hostnames}` endpoint. 
+When the `hostnames` are specified to `system-java8,system-java11`. The response is similar to the following example:
+
+[role='no_copy']
+----
 [
-  "osgi.checkConfiguration",
-  "awt.toolkit",
-  "file.encoding.pkg",
-  "java.specification.version",
-  "jdk.extensions.version",
-  "com.ibm.ws.beta.edition",
-  "sun.jnu.encoding",
-  "wlp.install.dir",
-  "wlp.user.dir.isDefault",
-  "java.class.path",
-  "wlp.lib.dir",
-  "java.vm.vendor",
-  "wlp.workarea.dir",
-   ...
+  {
+    "hostname": "system-java8",
+    "loadData": {
+      "heapUsed": 34251904,
+      "loadAverage": 0.11,
+      "nonHeapUsed": 84034688
+    }
+  },
+  {
+    "hostname": "system-java11",
+    "loadData": {
+      "heapUsed": 41953280,
+      "loadAverage": 0.11,
+      "nonHeapUsed": 112506520
+    }
+  }
 ]
 ----
+
+Lastly, you can also make requests to add a note to a system service at the `POST /client/properties/note` endpoint.
+To add a note to the system service running on Java 8, specify the following in the request body:
+
+[role='command']
+----
+{
+  "hostname": "system-java8",
+  "text": "I'm trying out GraphQL on Open Liberty!"
+}
+----
+
+You will recieve a `200` response code if the request is processed succesfully. 
 
 == Tearing down the environment
 
