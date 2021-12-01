@@ -299,7 +299,9 @@ When the `hostnames` are specified to `system-java8,system-java11`. The response
 ]
 ----
 
-Lastly, you can also make requests to add a note to a system service at the `POST /client/properties/note` endpoint.
+**Try the Create operation**
+
+You can also make requests to add a note to a system service at the `POST /client/properties/note` endpoint.
 To add a note to the system service running on Java 8, specify the following in the request body:
 
 [role='command']
