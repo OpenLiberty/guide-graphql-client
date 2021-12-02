@@ -40,7 +40,8 @@ To learn more about GraphQL, see our https://openliberty.io/guides/graphql-intro
 You will start with the GraphQL service created as part of our https://openliberty.io/guides/graphql-intro.html[GraphQL intro guide^].
 Then, you'll use the https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL client^]
 to create a `client` microservice that will make requests to the GraphQL service.
-The GraphQL service created as part of our https://openliberty.io/guides/graphql-intro.html[GraphQL intro guide^]. The GraphQL application retrieves data from multiple `system` services. The `client` makes requests to the GraphQL service, which then makes requests to the `system` services.
+The GraphQL application retrieves data from multiple `system` services. 
+The `client` makes requests to the GraphQL service, which then makes requests to the `system` services.
 
 https://github.com/smallrye/smallrye-graphql/tree/main/client/api[SmallRye GraphQL client^] supports two types of clients: `typesafe` and `dynamic` clients. A `typesafe` client provides ease of use and a high-level approach, while a `dynamic` client provides a more customizable and low-level approach to handle operations and responses. You will implement a `typesafe client` microservice. 
 
