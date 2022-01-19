@@ -27,6 +27,6 @@ start /b docker run -d ^
 start /b docker run -d ^
   -p 9084:9084 ^
   --network=%NETWORK% ^
-  --name=graphql-client ^
+  --name=query ^
   --rm ^
   query:1.0-SNAPSHOT &
