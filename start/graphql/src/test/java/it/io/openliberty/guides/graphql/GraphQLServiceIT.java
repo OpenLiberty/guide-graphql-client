@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
