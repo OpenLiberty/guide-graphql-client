@@ -28,8 +28,8 @@ docker run -d \
 docker run -d \
   -p 9084:9084 \
   --network=$NETWORK \
-  --name=graphql-client \
+  --name=query \
   --rm \
-  client:1.0-SNAPSHOT &
+  query:1.0-SNAPSHOT &
 
 wait
