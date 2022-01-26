@@ -18,6 +18,6 @@ LABEL \
   description="This image contains the graphql microservice running with the Open Liberty runtime."
 
 COPY --chown=1001:0 src/main/liberty/config /config/
-COPY --chown=1001:0 target/graphql.war /config/apps
+COPY --chown=1001:0 target/guide-graphql-client-graphql.war /config/apps
 
 RUN configure.sh
