@@ -1,4 +1,4 @@
-// Copyright (c) 2021, 2022 IBM Corporation and others.
+// Copyright (c) 2022 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -35,7 +35,7 @@ GraphQL is an open source data query language.
 Unlike REST APIs, each request sent to a GraphQL service goes to a single HTTP endpoint.
 To learn more about GraphQL, see the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide.
 
-You will start with the GraphQL service created as part of the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide.
+You will start with the `graphql` microservice created as part of the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide.
 Then, you'll use the https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^]
 to create a `query` microservice that will make requests to the GraphQL microservice.
 The GraphQL microservice retrieves data from multiple `system` microservices. 
@@ -72,8 +72,8 @@ will be used to implement the GraphQL client service.
 SmallRye GraphQL client supports two types of clients: typesafe and dynamic clients. 
 A typesafe client provides ease of use and a high-level approach, while a dynamic client provides a more customizable and low-level approach to handle operations and responses. You will implement a typesafe client microservice. 
 
-The typesafe client interface contains a function for each resolver available in the GraphQL service.
-The JSON objects returned by the GraphQL service are converted to Java objects.
+The typesafe client interface contains a function for each resolver available in the `graphql` microservice.
+The JSON objects returned by the `graphql` microservice are converted to Java objects.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -85,7 +85,7 @@ The [hotspot file=0]`GraphQlClient` interface is annotated with the
 [hotspot=clientApi file=0]`@GraphQlClientApi` annotation.
 This annotation denotes that this interface is used to create a typesafe GraphQL client.
 
-Inside the interface, a function header is written for each resolver available in the GraphQL service.
+Inside the interface, a function header is written for each resolver available in the `graphql` microservice.
 The names of the functions match the names of the resolvers in the GraphQL schema.
 Resolvers that require input variables have the input variables passed in using the
 [hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=0]`@Name` annotation on the function inputs.
@@ -107,11 +107,11 @@ If the hotspot=mutationTag file=0]`@Mutation` annotation was not placed on the f
 ----
 
 The [hotspot file=1]`QueryResource` class uses the `GraphQlClient` interface
-to make requests to the GraphQL service and display the results.
+to make requests to the `graphql` microservice and display the results.
 In a real application, you would be making requests to an external GraphQL API,
 or you would be doing further manipulation of the data after retrieval.
 
-Use the [hotspot=clientBuilder file=1]`GraphQLClientBuilder`] class to create a client object that implements the `GraphQlClient` interface and can interact with the GraphQL service.
+Use the [hotspot=clientBuilder file=1]`GraphQLClientBuilder`] class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice.
 The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable
 in the `server.xml`.
 The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`,
@@ -125,7 +125,7 @@ Add the SmallRye GraphQL client dependency to the project configuration file.
 `query/pom.xml`
 ----
 
-The [hotspot=graphQLClientDependency file=2]`smallrye-graphql-client` dependency provides the classes that use to interact with a GraphQL service.
+The [hotspot=graphQLClientDependency file=2]`smallrye-graphql-client` dependency provides the classes that use to interact with a `graphql` microservice.
 
 To get the service running, the Liberty server needs to be correctly configured.
 
@@ -135,7 +135,7 @@ To get the service running, the Liberty server needs to be correctly configured.
 `query/src/main/liberty/config/server.xml`
 ----
 
-The [hotspot=url file=3]`graphql.server` variable is defined in the [hotspot file=1]`server.xml` file.
+The [hotspot=url file=3]`graphql.server` variable is defined in the [hotspot file=3]`server.xml` file.
 This variable defines where the GraphQL client makes requests to.
 
 // file 0
@@ -195,7 +195,7 @@ docker build -t query:1.0-SNAPSHOT query/.
 
 Run these Docker images using the provided `startContainers` script.
 The script will create a network for the services to communicate through.
-It will create the two `system` services, a GraphQL service, and a `query` service that will interact with the GraphQL service.
+It will create the two `system` microservices, a `graphql` microservice, and a `query` microservice that will interact with eachother.
 
 include::{common-includes}/os-tabs.adoc[]
 
