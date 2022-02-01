@@ -39,7 +39,6 @@ You will start with the `graphql` microservice created as part of the https://op
 Then, you'll use the https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^]
 to create a `query` microservice that will make requests to the GraphQL microservice.
 The GraphQL microservice retrieves data from multiple `system` microservices. 
-The `query` microservice makes requests to the GraphQL microservice, which then makes requests to the `system` microservice.
 
 The results of the requests will be displayed at REST endpoints.
 OpenAPI will be used to help make the requests and display the data.
@@ -98,7 +97,7 @@ Thus, the [hotspot=systemInfo file=0]`system()` function returns the type `Syste
 Because the [hotspot=editNote file=0]`editNote` resolver is for a `mutation` operation,
 it has the [hotspot=mutationTag file=0]`@Mutation` annotation on it.
 A `mutation` operation allows you to modify data, in this case, it allows you to add and edit a note to the system service. 
-If the hotspot=mutationTag file=0]`@Mutation` annotation was not placed on the function, it would be treated as if it mapped to a `query` operation.
+If the [hotspot=mutationTag file=0]`@Mutation` annotation was not placed on the function, it would be treated as if it mapped to a `query` operation.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -111,7 +110,7 @@ to make requests to the `graphql` microservice and display the results.
 In a real application, you would be making requests to an external GraphQL API,
 or you would be doing further manipulation of the data after retrieval.
 
-Use the [hotspot=clientBuilder file=1]`GraphQLClientBuilder`] class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice.
+Use the [hotspot=clientBuilder file=1]`GraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice.
 The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable
 in the `server.xml`.
 The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`,
@@ -216,7 +215,6 @@ include::{common-includes}/os-tabs.adoc[]
 --
 
 The containers may take some time to become available. 
-Once your application is up and running, open your browser and check out your service by going to http://localhost:9084[^].
 
 == Accessing the application
 
