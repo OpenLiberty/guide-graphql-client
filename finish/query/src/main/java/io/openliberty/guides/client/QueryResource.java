@@ -35,7 +35,7 @@ public class QueryResource {
 
     // tag::clientBuilder[]
     private GraphQlClient gc = GraphQlClientBuilder.newBuilder()
-                                                           .build(GraphQlClient.class);
+                                                   .build(GraphQlClient.class);
     // end::clientBuilder[]
 
     @GET

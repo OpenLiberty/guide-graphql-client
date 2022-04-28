@@ -9,7 +9,7 @@
 :projectid: graphql-client
 :page-layout: guide-multipane
 :page-duration: 20 minutes
-:page-releasedate: 2021-11-11
+:page-releasedate: 2022-5-31
 :page-essential: false
 :page-description: Learn how to use a GraphQL client to run GraphQL queries and mutations.
 :page-tags: ['MicroProfile', 'Jakarta EE']
@@ -31,25 +31,15 @@ Learn how to use a GraphQL client to run GraphQL queries and mutations.
 
 == What you'll learn
 
-GraphQL is an open source data query language.
-Unlike REST APIs, each request sent to a GraphQL service goes to a single HTTP endpoint.
-To learn more about GraphQL, see the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide.
+GraphQL is an open source data query language. Unlike REST APIs, each request sent to a GraphQL service goes to a single HTTP endpoint. To learn more about GraphQL, see the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide.
 
-You will start with the `graphql` microservice created as part of the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide.
-Then, you'll use the https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^]
-to create a `query` microservice that will make requests to the GraphQL microservice.
-The GraphQL microservice retrieves data from multiple `system` microservices. 
+You will start with the `graphql` microservice created as part of the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide. Then, you'll use the https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] to create a `query` microservice that will make requests to the GraphQL microservice. The GraphQL microservice retrieves data from multiple `system` microservices. 
 
-The results of the requests will be displayed at REST endpoints.
-OpenAPI will be used to help make the requests and display the data.
-To learn more about OpenAPI, check out the 
-https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
+The results of the requests will be displayed at REST endpoints. OpenAPI will be used to help make the requests and display the data. To learn more about OpenAPI, check out the https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
 
 == Additional prerequisites
 
-Before you begin, Docker needs to be installed.
-For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^].
-You will build and run the application in Docker containers.
+Before you begin, Docker needs to be installed. For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^]. You will build and run the application in Docker containers.
 
 Make sure to start your Docker daemon before you proceed.
 
@@ -66,13 +56,9 @@ include::{common-includes}/gitclone.adoc[]
 
 Navigate to the `start` directory to begin.
 
-The https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^]
-will be used to implement the GraphQL client service.
-SmallRye GraphQL client supports two types of clients: typesafe and dynamic clients. 
-A typesafe client provides ease of use and a high-level approach, while a dynamic client provides a more customizable and low-level approach to handle operations and responses. You will implement a typesafe client microservice. 
+The https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] will be used to implement the GraphQL client service. SmallRye GraphQL client supports two types of clients: typesafe and dynamic clients. A typesafe client provides ease of use and a high-level approach, while a dynamic client provides a more customizable and low-level approach to handle operations and responses. You will implement a typesafe client microservice. 
 
-The typesafe client interface contains a function for each resolver available in the `graphql` microservice.
-The JSON objects returned by the `graphql` microservice are converted to Java objects.
+The typesafe client interface contains a function for each resolver available in the `graphql` microservice. The JSON objects returned by the `graphql` microservice are converted to Java objects.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -80,24 +66,20 @@ The JSON objects returned by the `graphql` microservice are converted to Java ob
 `query/src/main/java/io/openliberty/guides/client/GraphQlClient.java`
 ----
 
-The [hotspot file=0]`GraphQlClient` interface is annotated with the
-[hotspot=clientApi file=0]`@GraphQlClientApi` annotation.
-This annotation denotes that this interface is used to create a typesafe GraphQL client.
+// file 0
+GraphQlClient.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/src/main/java/io/openliberty/guides/client/GraphQlClient.java[]
+----
 
-Inside the interface, a function header is written for each resolver available in the `graphql` microservice.
-The names of the functions match the names of the resolvers in the GraphQL schema.
-Resolvers that require input variables have the input variables passed in using the
-[hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=0]`@Name` annotation on the function inputs.
-The return types of the functions should match those of the GraphQL resolvers.
+The [hotspot file=0]`GraphQlClient` interface is annotated with the [hotspot=clientApi file=0]`@GraphQlClientApi` annotation. This annotation denotes that this interface is used to create a typesafe GraphQL client.
 
-For example, the [hotspot=systemInfo file=0]`system()` function maps to the `system` resolver.
-The resolver returns a `SystemInfo` object, which is described by the `SystemInfo` class.
-Thus, the [hotspot=systemInfo file=0]`system()` function returns the type `SystemInfo`.
+Inside the interface, a function header is written for each resolver available in the `graphql` microservice The names of the functions match the names of the resolvers in the GraphQL schema. Resolvers that require input variables have the input variables passed in using the [hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=0]`@Name` annotation on the function inputs. The return types of the functions should match those of the GraphQL resolvers.
 
-Because the [hotspot=editNote file=0]`editNote` resolver is for a `mutation` operation,
-it has the [hotspot=mutationTag file=0]`@Mutation` annotation on it.
-A `mutation` operation allows you to modify data, in this case, it allows you to add and edit a note to the system service. 
-If the [hotspot=mutationTag file=0]`@Mutation` annotation was not placed on the function, it would be treated as if it mapped to a `query` operation.
+For example, the [hotspot=systemInfo file=0]`system()` function maps to the `system` resolver. The resolver returns a `SystemInfo` object, which is described by the `SystemInfo` class. Thus, the [hotspot=systemInfo file=0]`system()` function returns the type `SystemInfo`.
+
+Because the [hotspot=editNote file=0]`editNote` resolver is for a `mutation` operation, it has the [hotspot=mutationTag file=0]`@Mutation` annotation on it. A `mutation` operation allows you to modify data, in this case, it allows you to add and edit a note to the system service. If the [hotspot=mutationTag file=0]`@Mutation` annotation was not placed on the function, it would be treated as if it mapped to a `query` operation.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -105,16 +87,16 @@ If the [hotspot=mutationTag file=0]`@Mutation` annotation was not placed on the 
 `query/src/main/java/io/openliberty/guides/client/QueryResource.java`
 ----
 
-The [hotspot file=1]`QueryResource` class uses the `GraphQlClient` interface
-to make requests to the `graphql` microservice and display the results.
-In a real application, you would be making requests to an external GraphQL API,
-or you would be doing further manipulation of the data after retrieval.
+// file 1
+QueryResource.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/src/main/java/io/openliberty/guides/client/QueryResource.java[]
+----
 
-Use the [hotspot=clientBuilder file=1]`GraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice.
-The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable
-in the `server.xml`.
-The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`,
-[hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
+The [hotspot file=1]`QueryResource` class uses the `GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would be making requests to an external GraphQL API, or you would be doing further manipulation of the data after retrieval.
+
+Use the [hotspot=clientBuilder file=1]`GraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml`. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
 
 Add the SmallRye GraphQL client dependency to the project configuration file.
 
@@ -122,6 +104,13 @@ Add the SmallRye GraphQL client dependency to the project configuration file.
 ----
 #Replace the Maven project file.#
 `query/pom.xml`
+----
+
+// file 2
+pom.xml
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/pom.xml[]
 ----
 
 The [hotspot=graphQLClientDependency file=2]`smallrye-graphql-client` dependency provides the classes that use to interact with a `graphql` microservice.
@@ -134,36 +123,15 @@ To get the service running, the Liberty server needs to be correctly configured.
 `query/src/main/liberty/config/server.xml`
 ----
 
-The [hotspot=url file=3]`graphql.server` variable is defined in the [hotspot file=3]`server.xml` file.
-This variable defines where the GraphQL client makes requests to.
-
-// file 0
-GraphQlClient.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/query/src/main/java/io/openliberty/guides/client/GraphQlClient.java[]
-----
-
-// file 1
-QueryResource.java
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/query/src/main/java/io/openliberty/guides/client/QueryResource.java[]
-----
-
-// file 2
-pom.xml
-[source, xml, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/query/pom.xml[]
-----
-
 // file 3
 server.xml
 [source, xml, linenums, role='code_column hide_tags=copyright']
 ----
 include::finish/query/src/main/liberty/config/server.xml[]
 ----
+
+The [hotspot=url file=3]`graphql.server` variable is defined in the [hotspot file=3]`server.xml` file. This variable defines where the GraphQL client makes requests to.
+
 
 == Building and running the application
 
@@ -175,14 +143,11 @@ mvn -pl models install
 mvn package
 ----
 
-The `mvn install` command compiles and packages the object types you created to a `.jar` file.
-This allows them to be used by the `system` and `graphql` services.
-The `mvn package` command packages the `system`, `graphql`, and `query` services to `.war` files. 
+The `mvn install` command compiles and packages the object types you created to a `.jar` file. This allows them to be used by the `system` and `graphql` services. The `mvn package` command packages the `system`, `graphql`, and `query` services to `.war` files. 
 
 include::{common-includes}/ol-icr-full-docker-pull.adoc[]
 
-Dockerfiles have already been set up for you.
-Build your Docker images with the following commands:
+Dockerfiles have already been set up for you. Build your Docker images with the following commands:
 
 [role='command']
 ----
@@ -192,9 +157,7 @@ docker build -t graphql:1.0-SNAPSHOT graphql/.
 docker build -t query:1.0-SNAPSHOT query/.
 ----
 
-Run these Docker images using the provided `startContainers` script.
-The script will create a network for the services to communicate through.
-It will create the two `system` microservices, a `graphql` microservice, and a `query` microservice that will interact with eachother.
+Run these Docker images using the provided `startContainers` script. The script will create a network for the services to communicate through. It will create the two `system` microservices, a `graphql` microservice, and a `query` microservice that will interact with eachother.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -218,13 +181,11 @@ The containers may take some time to become available.
 
 == Accessing the application
 
-To access the client service, visit the http://localhost:9084/openapi/ui/[^] URL. 
-This URL displays the available REST endpoints that test the API endpoints that you created.
+To access the client service, visit the http://localhost:9084/openapi/ui/[^] URL. This URL displays the available REST endpoints that test the API endpoints that you created.
 
-**Try the query operations**
+=== Try the query operations
 
-From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. 
-This request retrieves the system properties for the `hostname` specified.
+From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. This request retrieves the system properties for the `hostname` specified.
 
 When the `hostname` is specified to `system-java8`. The response is similar to the following example:
 
@@ -250,8 +211,7 @@ When the `hostname` is specified to `system-java8`. The response is similar to t
 
 You can try out the operations using the hostname `system-java11` as well. 
 
-You can retrieve the information about the resource usage of any number of system services at the `GET /query/systemLoad/{hostnames}` endpoint. 
-When the `hostnames` are specified to `system-java8,system-java11`. The response is similar to the following example:
+You can retrieve the information about the resource usage of any number of system services at the `GET /query/systemLoad/{hostnames}` endpoint. When the `hostnames` are specified to `system-java8,system-java11`. The response is similar to the following example:
 
 [role='no_copy']
 ----
@@ -275,10 +235,9 @@ When the `hostnames` are specified to `system-java8,system-java11`. The response
 ]
 ----
 
-**Try the mutation operation**
+=== Try the mutation operation
 
-You can also make requests to add a note to a system service at the `POST /query/mutation/system/note` endpoint.
-To add a note to the system service running on Java 8, specify the following in the request body:
+You can also make requests to add a note to a system service at the `POST /query/mutation/system/note` endpoint. To add a note to the system service running on Java 8, specify the following in the request body:
 
 [role='command']
 ----
