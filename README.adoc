@@ -13,7 +13,7 @@
 :page-essential: false
 :page-description: Learn how to use a GraphQL client to run GraphQL queries and mutations.
 :page-tags: ['MicroProfile', 'Jakarta EE']
-:page-related-guides: ['graphql-intro']
+:page-related-guides: ['microprofile-graphql']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :imagesdir: /img/guide/{projectid}
