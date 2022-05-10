@@ -2,7 +2,7 @@ name: Trigger Conversion
 
 # Controls when the action will run. Triggers the workflow on push
 # events but only for the master branch
-on:
+on:00
   push:
     branches:
       - 'draft'
@@ -26,5 +26,5 @@ jobs:
           workflow: DraftConverter
           repo: OpenLiberty/cloud-hosted-guides
           token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
-          inputs: '{ "branch": "refs/heads/draft", "guide_name": "${{ github.event.repository.name }}", "cloud_hosted_name": "cloud-hosted-guide-graphql-client"}'
+          inputs: '{ "branch": "refs/heads/draft", "guide_name": "${{ github.event.repository.name }}"}'
           ref: "refs/heads/prod"
