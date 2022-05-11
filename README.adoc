@@ -273,7 +273,7 @@ include::{common-includes}/os-tabs.adoc[]
 
 == Great work! You're done!
 
-You just created a GraphQL client microservce!
+You just learnt how to use a GraphQL client to run GraphQL queries and mutations!
 
 include::{common-includes}/attribution.adoc[]
 
