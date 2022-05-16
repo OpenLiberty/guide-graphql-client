@@ -43,7 +43,7 @@ The GraphQL microservice retrieves data from multiple `system` microservices.
 The results of the requests will be displayed at REST endpoints.
 OpenAPI will be used to help make the requests and display the data.
 To learn more about OpenAPI, check out the 
-https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs] guide.
+https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs^] guide.
 
 == Additional prerequisites
 
