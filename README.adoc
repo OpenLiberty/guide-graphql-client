@@ -218,15 +218,37 @@ The containers may take some time to become available.
 
 == Accessing the application
 
+ifndef::cloud-hosted[]
+
 To access the client service, visit the http://localhost:9084/openapi/ui/[^] URL. 
 This URL displays the available REST endpoints that test the API endpoints that you created.
 
 **Try the query operations**
 
-From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. 
-This request retrieves the system properties for the `hostname` specified.
+From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. This request retrieves the system properties for the `hostname` specified.
 
-When the `hostname` is specified to `system-java8`. The response is similar to the following example:
+When the `hostname` is specified to `system-java8`, but you can try out the operations using the hostname `system-java11` as well. 
+
+The response is similar to the following example:
+
+endif::[]
+
+ifdef::cloud-hosted[]
+
+To access the client service, there are several available REST endpoints that test the API endpoints that you created. 
+
+**Try the query operations**
+
+First, make a GET request to the ***/query/system/{hostname}*** endpoint by the following command. This request retrieves the system properties for the ***hostname*** specified.
+
+The ***hostname*** is specified to ***system-java8***. You can try out the operations using the hostname ***system-java11*** as well. 
+
+```bash
+curl -s 'http://localhost:9084/query/system/system-java8' | jq
+```
+You can expect response similar to the following example:
+
+endif::[]
 
 [role='no_copy']
 ----
@@ -248,10 +270,25 @@ When the `hostname` is specified to `system-java8`. The response is similar to t
 }
 ----
 
-You can try out the operations using the hostname `system-java11` as well. 
+ifndef::cloud-hosted[]
 
 You can retrieve the information about the resource usage of any number of system services at the `GET /query/systemLoad/{hostnames}` endpoint. 
 When the `hostnames` are specified to `system-java8,system-java11`. The response is similar to the following example:
+
+endif::[]
+
+ifdef::cloud-hosted[]
+
+You can retrieve the information about the resource usage of any number of system services by making a GET request at ***/query/systemLoad/{hostnames}*** endpoint. 
+The ***hostnames*** are specified to ***system-java8,system-java11***.
+
+```bash
+curl -s 'http://localhost:9084/query/systemLoad/system-java8,system-java11' | jq
+```
+
+You can expect the following response is similar to the following example:
+
+endif::[]
 
 [role='no_copy']
 ----
@@ -275,6 +312,8 @@ When the `hostnames` are specified to `system-java8,system-java11`. The response
 ]
 ----
 
+ifndef::cloud-hosted[]
+
 **Try the mutation operation**
 
 You can also make requests to add a note to a system service at the `POST /query/mutation/system/note` endpoint.
@@ -284,11 +323,28 @@ To add a note to the system service running on Java 8, specify the following in 
 ----
 {
   "hostname": "system-java8",
-  "text": "I'm trying out GraphQL on Open Liberty!"
+  "text": "I am trying out GraphQL on Open Liberty!"
 }
 ----
 
 You will recieve a `200` response code if the request is processed succesfully. 
+
+endif::[]
+
+ifdef::cloud-hosted[]
+
+**Try the mutation operation**
+
+You can also make POST requests to add a note to a system service at the ***/query/mutation/system/note*** endpoint.
+To add a note to the system service running on Java 8, run the following command:
+
+```bash
+curl -X POST 'http://localhost:9084/query/mutation/system/note' -d '{"hostname": "system-java8", "text": "I am trying out GraphQL on Open Liberty!"}' 
+```
+You will recieve a `200` response code if the request is processed succesfully. 
+
+endif::[]
+
 
 == Tearing down the environment
 
