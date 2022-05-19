@@ -339,7 +339,7 @@ You can also make POST requests to add a note to a system service at the ***/que
 To add a note to the system service running on Java 8, run the following command:
 
 ```bash
-curl -X POST 'http://localhost:9084/query/mutation/system/note' -d '{"hostname": "system-java8", "text": "I am trying out GraphQL on Open Liberty!"}' 
+curl -X 'POST' 'http://localhost:9084/query/mutation/system/note' -H 'Content-Type: application/json' -d '{"hostname": "system-java8","text": "I am trying out GraphQL on Open Liberty!"}'
 ```
 You will recieve a `200` response code if the request is processed succesfully. 
 
