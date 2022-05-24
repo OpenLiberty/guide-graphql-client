@@ -273,7 +273,7 @@ endif::[]
 
 ifndef::cloud-hosted[]
 
-**Try the mutation operation**
+=== Try the mutation operation
 
 You can also make requests to add a note to a system service at the `POST /query/mutation/system/note` endpoint. To add a note to the system service running on Java 8, specify the following in the request body:
 
