@@ -27,14 +27,14 @@ import io.openliberty.guides.graphql.models.SystemInfo;
 import io.openliberty.guides.graphql.models.SystemLoad;
 import io.openliberty.guides.graphql.models.NoteInfo;
 import io.openliberty.guides.query.client.GraphQlClient;
-import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
+import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
 
 @ApplicationScoped
 @Path("query")
 public class QueryResource {
 
     // tag::clientBuilder[]
-    private GraphQlClient gc = GraphQlClientBuilder.newBuilder()
+    private GraphQlClient gc = TypesafeGraphQLClientBuilder.newBuilder()
                                                    .build(GraphQlClient.class);
     // end::clientBuilder[]
 
