@@ -12,7 +12,11 @@
 // end::copyright[]
 package io.openliberty.guides.query;
 
-import java.util.Set;
+import io.openliberty.guides.graphql.models.NoteInfo;
+import io.openliberty.guides.graphql.models.SystemInfo;
+import io.openliberty.guides.graphql.models.SystemLoad;
+import io.openliberty.guides.query.client.GraphQlClient;
+import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -22,12 +26,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import io.openliberty.guides.graphql.models.SystemInfo;
-import io.openliberty.guides.graphql.models.SystemLoad;
-import io.openliberty.guides.graphql.models.NoteInfo;
-import io.openliberty.guides.query.client.GraphQlClient;
-import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
 
 @ApplicationScoped
 @Path("query")
