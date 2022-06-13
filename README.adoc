@@ -63,7 +63,7 @@ The typesafe client interface contains a function for each resolver available in
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
 #Create the `GraphQlClient` interface.#
-`query/src/main/java/io/openliberty/guides/client/GraphQlClient.java`
+`query/src/main/java/io/openliberty/guides/query/client/GraphQlClient.java`
 ----
 
 // file 0
@@ -84,7 +84,7 @@ Because the [hotspot=editNote file=0]`editNote` resolver is for a `mutation` ope
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
 #Create the `QueryResource` class.#
-`query/src/main/java/io/openliberty/guides/client/QueryResource.java`
+`query/src/main/java/io/openliberty/guides/query/QueryResource.java`
 ----
 
 // file 1
