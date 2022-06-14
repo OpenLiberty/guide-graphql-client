@@ -33,7 +33,7 @@ Learn how to use a GraphQL client to run GraphQL queries and mutations.
 
 GraphQL is an open source data query language. Unlike REST APIs, each request sent to a GraphQL service goes to a single HTTP endpoint. To learn more about GraphQL, see the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide.
 
-You will start with the `graphql` microservice created as part of the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide. Then, you'll use the https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] to create a `query` microservice that will make requests to the GraphQL microservice. The GraphQL microservice retrieves data from multiple `system` microservices. 
+You will start with the `graphql` microservice created as part of the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide. Then, you'll use the https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] to create a `query` microservice that will make requests to the `graphql` microservice. The `graphql` microservice retrieves data from multiple `system` microservices.
 
 The results of the requests will be displayed at REST endpoints. OpenAPI will be used to help make the requests and display the data. To learn more about OpenAPI, check out the https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs^] guide.
 
