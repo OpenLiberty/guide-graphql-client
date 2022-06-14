@@ -70,7 +70,7 @@ The typesafe client interface contains a function for each resolver available in
 GraphQlClient.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/query/src/main/java/io/openliberty/guides/client/GraphQlClient.java[]
+include::finish/query/src/main/java/io/openliberty/guides/query/client/GraphQlClient.java[]
 ----
 
 The [hotspot file=0]`GraphQlClient` interface is annotated with the [hotspot=clientApi file=0]`@GraphQlClientApi` annotation. This annotation denotes that this interface is used to create a typesafe GraphQL client.
@@ -91,7 +91,7 @@ Because the [hotspot=editNote file=0]`editNote` resolver is for a `mutation` ope
 QueryResource.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/query/src/main/java/io/openliberty/guides/client/QueryResource.java[]
+include::finish/query/src/main/java/io/openliberty/guides/query/QueryResource.java[]
 ----
 
 The [hotspot file=1]`QueryResource` class uses the `GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would be making requests to an external GraphQL API, or you would be doing further manipulation of the data after retrieval.
@@ -113,7 +113,7 @@ pom.xml
 include::finish/query/pom.xml[]
 ----
 
-The [hotspot=graphQLClientDependency file=2]`smallrye-graphql-client` dependency provides the classes that use to interact with a `graphql` microservice.
+The [hotspot=graphQLClientDependency file=2]`smallrye-graphql-client` dependencies provide the classes that use to interact with a `graphql` microservice.
 
 To get the service running, the Liberty server needs to be correctly configured.
 
