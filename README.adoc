@@ -37,6 +37,8 @@ You will start with the `graphql` microservice created as part of the https://op
 
 The results of the requests will be displayed at REST endpoints. OpenAPI will be used to help make the requests and display the data. To learn more about OpenAPI, check out the https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs^] guide.
 
+image::architecture.png[GraphQL client application architecture where multiple system microservices are integrated behind the graphql service, and the query service uses GraphQL client APIs to access the graphql service. align="center"]
+
 == Additional prerequisites
 
 Before you begin, Docker needs to be installed. For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^]. You will build and run the application in Docker containers.
