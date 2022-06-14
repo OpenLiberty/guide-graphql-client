@@ -96,7 +96,7 @@ include::finish/query/src/main/java/io/openliberty/guides/query/QueryResource.ja
 
 The [hotspot file=1]`QueryResource` class uses the `GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would be making requests to an external GraphQL API, or you would be doing further manipulation of the data after retrieval.
 
-Use the [hotspot=clientBuilder file=1]`GraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml`. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
+Use the [hotspot=clientBuilder file=1]`TypesafeGraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml`. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
 
 Add the SmallRye GraphQL client dependency to the project configuration file.
 
