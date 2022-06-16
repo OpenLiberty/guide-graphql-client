@@ -341,7 +341,7 @@ First, create a RESTful client interface for the `query` microservice.
 
 [role="code_command hotspot file=4" ,subs="quotes"]
 ----
-#Create the `QueryResourceClient.java` interface.#
+#Create the `QueryResourceClien.java` interface.#
 `query/src/test/java/it/io/openliberty/guides/query/QueryResourceClient.java`
 ----
 
