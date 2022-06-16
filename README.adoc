@@ -394,21 +394,6 @@ The [hotspot=testGetSystemLoad file=6]`testGetSystemLoad()` verifies the `/query
 
 The [hotspot=testGetSystem file=6]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostnames` specified to `system-java8`.
 
-Create the log4j properites that are required by the Testcontainers framework.
-
-[role="code_command hotspot file=5" ,subs="quotes"]
-----
-#Create the `log4j.properties` file.#
-`query/src/test/resources/log4j.properties`
-----
-
-// file 7
-log4j.properties
-[source, java, linenums, role='code_column hide_tags=copyright']
-----
-include::finish/query/src/test/resources/log4j.properties[]
-----
-
 The required [hotspot=testDependenies file=2]`dependencies` had already been added to the [hotspot file=2]`pom.xml` Maven configuration file for you, including JUnit5, JBoss RESTEasy client, Glassfish JSON, Testcontainers, and Log4J libraries.
 
 To enable running the integration test by the Maven `verify` goal, the [hotspot=failsafe file=5]`maven-failsafe-plugin` plugin is also required.
