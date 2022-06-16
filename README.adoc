@@ -353,87 +353,85 @@ QueryResourceClient.java
 include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResourceClient.java[]
 ----
 
-[hotspot=SystemInfo file=0]`querySystem()`
+This interface declares [hotspot=SystemInfo file=0]`querySystem()`, [hotspot=querySystemLoad file=0]`querySystemLoad()`, and [hotspot=editNote file=0]`editNote()` methods for accessing each of the endpoints that are set up to access the `query` microservice.
 
-// This interface declares [hotspot=SystemInfo file=0]`querySystem()`, [hotspot=querySystemLoad file=0]`querySystemLoad()`, and [hotspot=editNote file=0]`editNote()` methods for accessing each of the endpoints that are set up to access the `query` microservice.
+Create the test container class that access the `query` docker image that you built in previous section.
 
-// Create the test container class that access the `query` docker image that you built in previous section.
+[role="code_command hotspot file=1" ,subs="quotes"]
+----
+#Create the `LibertyContainer.java` file.#
+`query/src/test/java/it/io/openliberty/guides/query/LibertyContainer.java`
+----
 
-// [role="code_command hotspot file=1" ,subs="quotes"]
-// ----
-// #Create the `LibertyContainer.java` file.#
-// `query/src/test/java/it/io/openliberty/guides/query/LibertyContainer.java`
-// ----
+// file 1
+LibertyContainer.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/src/test/java/it/io/openliberty/guides/query/LibertyContainer.java[]
+----
 
-// // file 1
-// LibertyContainer.java
-// [source, java, linenums, role='code_column hide_tags=copyright']
-// ----
-// include::finish/query/src/test/java/it/io/openliberty/guides/query/LibertyContainer.java[]
-// ----
+The [hotspot=createRestClient file=1]`createRestClient()` method creates a REST client instance with the QueryResourceClient interface. The [hotspot=getBaseURL file=1]`getBaseURL()` method constructs the URL that can access the `query` docker image.
 
-// The [hotspot=createRestClient file=1]`createRestClient()` method creates a REST client instance with the QueryResourceClient interface. The [hotspot=getBaseURL file=1]`getBaseURL()` method constructs the URL that can access the `query` docker image.
+Now, you'll create your integration test cases.
 
-// Now, you'll create your integration test cases.
+[role="code_command hotspot file=2" ,subs="quotes"]
+----
+#Create the `QueryResourceIT.java` file.#
+`query/src/test/java/it/io/openliberty/guides/query/QueryResourceIT.java`
+----
 
-// [role="code_command hotspot file=2" ,subs="quotes"]
-// ----
-// #Create the `QueryResourceIT.java` file.#
-// `query/src/test/java/it/io/openliberty/guides/query/QueryResourceIT.java`
-// ----
+// file 2
+QueryResourceIT.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResourceIT.java[]
+----
 
-// // file 2
-// QueryResourceIT.java
-// [source, java, linenums, role='code_column hide_tags=copyright']
-// ----
-// include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResourceIT.java[]
-// ----
+Define the [hotspot=systemContainer file=2]`systemContainer` test container to start up the `system-java8` docker image, the [hotspot=graphqlContainer file=2]`graphqlContainer` test container to start up the `graphql` docker image, and the [hotspot=libertyContainer file=2]`libertyContainer` test container to start up the `query` docker image. Make sure that the containers use the same network.
 
-// Define the [hotspot=systemContainer file=2]`systemContainer` test container to start up the `system-java8` docker image, the [hotspot=graphqlContainer file=2]`graphqlContainer` test container to start up the `graphql` docker image, and the [hotspot=libertyContainer file=2]`libertyContainer` test container to start up the `query` docker image. Make sure that the containers use the same network.
+The [hotspot=testEditNote file=2]`testEditNote()` verifies the mutation operation at the `/query/mutation/system/note` endpoint.
 
-// The [hotspot=testEditNote file=2]`testEditNote()` verifies the mutation operation at the `/query/mutation/system/note` endpoint.
+The [hotspot=testGetSystemLoad file=2]`testGetSystemLoad()` verifies the `/query/systemLoad/{hostnames}` endpoint with `hostnames` specified to `system-java8`.
 
-// The [hotspot=testGetSystemLoad file=2]`testGetSystemLoad()` verifies the `/query/systemLoad/{hostnames}` endpoint with `hostnames` specified to `system-java8`.
+The [hotspot=testGetSystem file=2]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostnames` specified to `system-java8`.
 
-// The [hotspot=testGetSystem file=2]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostnames` specified to `system-java8`.
+// file 3
+pom.xml
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/pom.xml[]
+----
 
-// // file 3
-// pom.xml
-// [source, xml, linenums, role='code_column hide_tags=copyright']
-// ----
-// include::finish/query/pom.xml[]
-// ----
+The required [hotspot=testDependenies file=3]`dependencies` had already been added to the [hotspot file=3]`pom.xml` Maven configuration file for you, including JUnit5, JBoss RESTEasy client, Glassfish JSON, Testcontainers, and Log4J libraries.
 
-// The required [hotspot=testDependenies file=3]`dependencies` had already been added to the [hotspot file=3]`pom.xml` Maven configuration file for you, including JUnit5, JBoss RESTEasy client, Glassfish JSON, Testcontainers, and Log4J libraries.
+To enable running the integration test by the Maven `verify` goal, the [hotspot=failsafe file=3]`maven-failsafe-plugin` plugin is also required.
 
-// To enable running the integration test by the Maven `verify` goal, the [hotspot=failsafe file=3]`maven-failsafe-plugin` plugin is also required.
+=== Running the tests
 
-// === Running the tests
+You can run the Maven `verify` goal, which compiles the java files, starts the containers, runs the tests, and then stops the containers.
 
-// You can run the Maven `verify` goal, which compiles the java files, starts the containers, runs the tests, and then stops the containers.
+ifndef::cloud-hosted[]
+[role='command']
+```
+mvn verify
+```
+endif::[]
 
-// ifndef::cloud-hosted[]
-// [role='command']
-// ```
-// mvn verify
-// ```
-// endif::[]
+You will see the following output:
 
-// You will see the following output:
+[source,role="no_copy"]
+----
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running it.io.openliberty.guides.query.QueryResourceIT
+...
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.694 s - in it.io.openliberty.guides.query.QueryResourceIT
 
-// [source,role="no_copy"]
-// ----
-// -------------------------------------------------------
-//  T E S T S
-// -------------------------------------------------------
-// Running it.io.openliberty.guides.query.QueryResourceIT
-// ...
-// Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.694 s - in it.io.openliberty.guides.query.QueryResourceIT
+Results :
 
-// Results :
-
-// Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
-// ----
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+----
 
 
 == Great work! You're done!
