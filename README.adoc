@@ -333,6 +333,7 @@ include::{common-includes}/os-tabs.adoc[]
 ```
 --
 
+
 == Testing the application
 
 Although you can test your application manually, you should rely on automated tests. In this section, you'll create integration tests using Testcontainers to verify that the basic operations you implemented function correctly. 
