@@ -352,7 +352,7 @@ QueryResourceClient.java
 include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResourceClient.java[]
 ----
 
-This interface declares [hotspot=SystemInfo file=0]`querySystem()`, [hotspot=List<SystemLoad> file=0]`querySystemLoad()`, and [hotspot=Response file=0]`editNote()` methods for accessing each of the endpoints that are set up to access the `query` microservice.
+This interface declares [hotspot=clientUsed1 file=0]`querySystem()`, [hotspot=clientUsed2 file=0]`querySystemLoad()`, and [hotspot=clientUsed3 file=0]`editNote()` methods for accessing each of the endpoints that are set up to access the `query` microservice.
 
 Create the test container class that access the `query` docker image that you built in previous section.
 
