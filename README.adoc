@@ -337,29 +337,7 @@ include::{common-includes}/os-tabs.adoc[]
 
 Although you can test your application manually, you should rely on automated tests. In this section, you'll create integration tests using Testcontainers to verify that the basic operations you implemented function correctly. 
 
-First, create the test directory at the src directory of your Maven project.
-
-include::{common-includes}/os-tabs.adoc[]
-
-[.tab_content.windows_section]
---
-[role='command']
-```
-mkdir src\test\java\it\io\openliberty\guides\query
-mkdir src\test\resources
-```
---
-
-[.tab_content.mac_section.linux_section]
---
-[role='command']
-```
-mkdir -p src/test/java/it/io/openliberty/guides/query
-mkdir src/test/resources
-```
---
-
-Create a RESTful client interface for the `query` microservice.
+First, create a RESTful client interface for the `query` microservice.
 
 [role="code_command hotspot file=4" ,subs="quotes"]
 ----
