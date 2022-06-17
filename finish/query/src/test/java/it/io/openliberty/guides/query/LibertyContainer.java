@@ -12,28 +12,19 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
 import jakarta.ws.rs.client.ClientBuilder;
-// simple import to build a URI/URL
 import jakarta.ws.rs.core.UriBuilder;
 
 public class LibertyContainer extends GenericContainer<LibertyContainer> {
 
     static final Logger LOGGER = LoggerFactory.getLogger(LibertyContainer.class);
-
     private String baseURL;
-
-    public static String getProtocol() {
-        return System.getProperty("test.protocol", "http");
-    }
-
-    public static boolean testHttps() {
-        return getProtocol().equalsIgnoreCase("http");
-    }
 
     public LibertyContainer(final String dockerImageName) {
         super(dockerImageName);
         // wait for smarter planet message by default
         waitingFor(Wait.forLogMessage("^.*CWWKF0011I.*$", 1));
-        init();
+        this.addExposedPorts(9084);
+        return;
     }
 
     // tag::createRestClient[]
@@ -61,9 +52,4 @@ public class LibertyContainer extends GenericContainer<LibertyContainer> {
         return baseURL;
     }
     // end::getBaseURL[]
-
-    private void init() {
-        this.addExposedPorts(9084);
-        return;
-    }
 }

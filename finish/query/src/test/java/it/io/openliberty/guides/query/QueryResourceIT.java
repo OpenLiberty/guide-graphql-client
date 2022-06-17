@@ -23,20 +23,24 @@ import io.openliberty.guides.graphql.models.SystemLoad;
 import io.openliberty.guides.graphql.models.SystemLoadData;
 import io.openliberty.guides.graphql.models.SystemInfo;
 
+// tag::testcontainers[]
 @Testcontainers
+// end::testcontainers[]
 @TestMethodOrder(OrderAnnotation.class)
 public class QueryResourceIT {
 
     private static Logger logger = LoggerFactory.getLogger(QueryResourceIT.class);
     private static String system8ImageName = "system:1.0-java8-SNAPSHOT";
-    private static String appImageName = "query:1.0-SNAPSHOT";
+    private static String queryImageName = "query:1.0-SNAPSHOT";
     private static String graphqlImageName = "graphql:1.0-SNAPSHOT";
 
     public static QueryResourceClient client;
     public static Network network = Network.newNetwork();
 
     // tag::systemContainer[]
+    // tag::container[]
     @Container
+    // end::container[]
     public static GenericContainer<?> systemContainer
         = new GenericContainer<>(system8ImageName)
               .withNetwork(network)
@@ -46,7 +50,9 @@ public class QueryResourceIT {
     // end::systemContainer[]
 
     // tag::graphqlContainer[]
+    // tag::container[]
     @Container
+    // end::container[]
     public static LibertyContainer graphqlContainer
         = new LibertyContainer(graphqlImageName)
               .withNetwork(network)
@@ -56,9 +62,11 @@ public class QueryResourceIT {
     // end::graphqlContainer[]
 
     // tag::libertyContainer[]
+    // tag::container[]
     @Container
+    // end::container[]
     public static LibertyContainer libertyContainer
-        = new LibertyContainer(appImageName)
+        = new LibertyContainer(queryImageName)
               .withNetwork(network)
               .withExposedPorts(9084)
               .withLogConsumer(new Slf4jLogConsumer(logger));
@@ -70,19 +78,18 @@ public class QueryResourceIT {
         client = libertyContainer.createRestClient(QueryResourceClient.class);
     }
 
-    // tag::testEditNote[]
+    // tag::testGetSystem[]
     @Test
     @Order(1)
-    public void testEditNote() {
-        System.out.println("TEST: Testing editing note /mutation/system/note");
-        NoteInfo note = new NoteInfo();
-        note.setHostname("system-java8");
-        note.setText("I am trying out GraphQL on Open Liberty!");
-        Response response = client.editNote(note);
-        assertEquals(200, response.getStatus(),
-                     "Incorrect response code");
+    public void testGetSystem() {
+        System.out.println("TEST: Testing get system /system/system-java8");
+        SystemInfo systemInfo = client.querySystem("system-java8");
+        assertEquals(systemInfo.getHostname(), "system-java8");
+        assertNotNull(systemInfo.getOsVersion(), "osVersion is null");
+        assertNotNull(systemInfo.getJava(), "java is null");
+        assertNotNull(systemInfo.getSystemMetrics(), "systemMetrics is null");
     }
-    // end::testEditNote[]
+    // end::testGetSystem[]
 
     // tag::testGetSystemLoad[]
     @Test
@@ -98,20 +105,18 @@ public class QueryResourceIT {
     }
     // end::testGetSystemLoad[]
 
-    // tag::testGetSystem[]
+    // tag::testEditNote[]
     @Test
     @Order(3)
-    public void testGetSystem() {
-        System.out.println("TEST: Testing get system /system/system-java8");
+    public void testEditNote() {
+        System.out.println("TEST: Testing editing note /mutation/system/note");
+        NoteInfo note = new NoteInfo();
+        note.setHostname("system-java8");
+        note.setText("I am trying out GraphQL on Open Liberty!");
+        Response response = client.editNote(note);
+        assertEquals(200, response.getStatus(), "Incorrect response code");
         SystemInfo systemInfo = client.querySystem("system-java8");
-        assertEquals(systemInfo.getHostname(), "system-java8");
-        assertEquals(systemInfo.getUsername(), "default");
-        assertEquals(systemInfo.getOsName(), "Linux");
-        assertEquals(systemInfo.getOsArch(), "amd64");
         assertEquals(systemInfo.getNote(), "I am trying out GraphQL on Open Liberty!");
-        assertNotNull(systemInfo.getOsVersion(), "osVersion is null");
-        assertNotNull(systemInfo.getJava(), "java is null");
-        assertNotNull(systemInfo.getSystemMetrics(), "systemMetrics is null");
     }
-    // end::testGetSystem[]
+    // end::testEditNote[]
 }
