@@ -31,21 +31,27 @@ import io.openliberty.guides.graphql.models.NoteInfo;
 @Path("query")
 public interface QueryResourceClient {
 
+    // tag::querySystem[]
     @GET
     @Path("system/{hostname}")
     @Produces(MediaType.APPLICATION_JSON)
     SystemInfo querySystem(
         @PathParam("hostname") String hostname);
+    // end::querySystem[]
 
+    // tag::querySystemLoad[]
     @GET
     @Path("systemLoad/{hostnames}")
     @Produces(MediaType.APPLICATION_JSON)
     List<SystemLoad> querySystemLoad(
         @PathParam("hostnames") String hostnames);
+    // end::querySystemLoad[]
 
+    // tag::editNote[]
     @POST
     @Path("mutation/system/note")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     Response editNote(NoteInfo text);
+    // end::editNote[]
 }
