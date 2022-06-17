@@ -35,6 +35,7 @@ public class QueryResourceIT {
     public static QueryResourceClient client;
     public static Network network = Network.newNetwork();
 
+    // tag::systemContainer[]
     @Container
     public static GenericContainer<?> systemContainer
         = new GenericContainer<>(system8ImageName)
@@ -42,14 +43,9 @@ public class QueryResourceIT {
               .withExposedPorts(9080)
               .withNetworkAliases("system-java8")
               .withLogConsumer(new Slf4jLogConsumer(logger));
+    // end::systemContainer[]
 
-    @Container
-    public static LibertyContainer libertyContainer
-        = new LibertyContainer(appImageName)
-              .withNetwork(network)
-              .withExposedPorts(9084)
-              .withLogConsumer(new Slf4jLogConsumer(logger));
-
+    // tag::graphqlContainer[]
     @Container
     public static LibertyContainer graphqlContainer
         = new LibertyContainer(graphqlImageName)
@@ -57,6 +53,16 @@ public class QueryResourceIT {
               .withExposedPorts(9082)
               .withNetworkAliases("graphql")
               .withLogConsumer(new Slf4jLogConsumer(logger));
+    // end::graphqlContainer[]
+
+    // tag::libertyContainer[]
+    @Container
+    public static LibertyContainer libertyContainer
+        = new LibertyContainer(appImageName)
+              .withNetwork(network)
+              .withExposedPorts(9084)
+              .withLogConsumer(new Slf4jLogConsumer(logger));
+    // end::libertyContainer[]
 
     @BeforeAll
     public static void setupTestClass() throws Exception {
@@ -64,6 +70,7 @@ public class QueryResourceIT {
         client = libertyContainer.createRestClient(QueryResourceClient.class);
     }
 
+    // tag::testEditNote[]
     @Test
     @Order(1)
     public void testEditNote() {
@@ -75,7 +82,9 @@ public class QueryResourceIT {
         assertEquals(200, response.getStatus(),
                      "Incorrect response code");
     }
+    // end::testEditNote[]
 
+    // tag::testGetSystemLoad[]
     @Test
     @Order(2)
     public void testGetSystemLoad() {
@@ -87,7 +96,9 @@ public class QueryResourceIT {
         assertNotNull(systemLoadData.getHeapUsed(), "headUsed is null");
         assertNotNull(systemLoadData.getNonHeapUsed(), "nonHeapUsed is null");
     }
+    // end::testGetSystemLoad[]
 
+    // tag::testGetSystem[]
     @Test
     @Order(3)
     public void testGetSystem() {
@@ -102,4 +113,5 @@ public class QueryResourceIT {
         assertNotNull(systemInfo.getJava(), "java is null");
         assertNotNull(systemInfo.getSystemMetrics(), "systemMetrics is null");
     }
+    // end::testGetSystem[]
 }

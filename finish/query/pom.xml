@@ -45,7 +45,6 @@
         <!-- end::models[] -->
         
         <!-- GraphQL API dependencies -->
-        <!-- tag::graphQLClientDependency[] -->
         <dependency>
             <groupId>io.smallrye</groupId>
             <artifactId>smallrye-graphql-client</artifactId>
@@ -61,7 +60,6 @@
             <artifactId>stork-core</artifactId>
             <version>1.1.2</version>
         </dependency>
-        <!-- end::graphQLClientDependency[] -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -69,6 +67,7 @@
         </dependency>
         
         <!-- For tests -->
+        <!-- tag::testDependenies[] -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -111,6 +110,7 @@
             <version>1.7.36</version>
             <scope>test</scope>
         </dependency>
+        <!-- end::testDependenies[] -->
     </dependencies>
 
     <build>
@@ -143,6 +143,7 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+            <!-- tag::failsafe[] -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -156,6 +157,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- end::failsafe[] -->
         </plugins>
     </build>
 </project>

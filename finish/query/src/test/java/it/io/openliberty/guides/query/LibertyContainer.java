@@ -36,6 +36,7 @@ public class LibertyContainer extends GenericContainer<LibertyContainer> {
         init();
     }
 
+    // tag::createRestClient[]
     public <T> T createRestClient(Class<T> clazz) {
         String urlPath = getBaseURL();
         ClientBuilder builder = ResteasyClientBuilder.newBuilder();
@@ -43,7 +44,9 @@ public class LibertyContainer extends GenericContainer<LibertyContainer> {
         ResteasyWebTarget target = client.target(UriBuilder.fromPath(urlPath));
         return target.proxy(clazz);
     }
+    // end::createRestClient[]
 
+    // tag::getBaseURL[]
     public String getBaseURL() throws IllegalStateException {
         if (baseURL != null) {
             return baseURL;
@@ -57,6 +60,7 @@ public class LibertyContainer extends GenericContainer<LibertyContainer> {
         System.out.println("TEST: " + baseURL);
         return baseURL;
     }
+    // end::getBaseURL[]
 
     private void init() {
         this.addExposedPorts(9084);
