@@ -38,9 +38,9 @@ public class QueryResourceIT {
     public static Network network = Network.newNetwork();
 
     // tag::systemContainer[]
-    // tag::container[]
+    // tag::container1[]
     @Container
-    // end::container[]
+    // end::container1[]
     public static GenericContainer<?> systemContainer
         = new GenericContainer<>(system8ImageName)
               .withNetwork(network)
@@ -50,9 +50,9 @@ public class QueryResourceIT {
     // end::systemContainer[]
 
     // tag::graphqlContainer[]
-    // tag::container[]
+    // tag::container2[]
     @Container
-    // end::container[]
+    // end::container2[]
     public static LibertyContainer graphqlContainer
         = new LibertyContainer(graphqlImageName)
               .withNetwork(network)
