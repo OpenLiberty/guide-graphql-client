@@ -45,6 +45,7 @@
         <!-- end::models[] -->
         
         <!-- GraphQL API dependencies -->
+        <!-- tag::clientDependenies[] -->
         <dependency>
             <groupId>io.smallrye</groupId>
             <artifactId>smallrye-graphql-client</artifactId>
@@ -65,7 +66,8 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.30</version>
         </dependency>
-        
+        <!-- end::clientDependenies[] -->
+             
         <!-- For tests -->
         <!-- tag::testDependenies[] -->
         <dependency>
