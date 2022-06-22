@@ -355,7 +355,7 @@ include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResource
 
 This interface declares [hotspot=querySystem file=0]`querySystem()`, [hotspot=querySystemLoad file=0]`querySystemLoad()`, and [hotspot=editNote file=0]`editNote()` methods for accessing each of the endpoints that are set up to access the `query` microservice.
 
-Create the test container class that access the `query` docker image that you built in previous section.
+Create the test container class that access the `query` image that you built in previous section.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -370,7 +370,7 @@ LibertyContainer.java
 include::finish/query/src/test/java/it/io/openliberty/guides/query/LibertyContainer.java[]
 ----
 
-The [hotspot=createRestClient file=1]`createRestClient()` method creates a REST client instance with the `QueryResourceClient` interface. The [hotspot=getBaseURL file=1]`getBaseURL()` method constructs the URL that can access the `query` docker image.
+The [hotspot=createRestClient file=1]`createRestClient()` method creates a REST client instance with the `QueryResourceClient` interface. The [hotspot=getBaseURL file=1]`getBaseURL()` method constructs the URL that can access the `query` image.
 
 Now, you'll create your integration test cases.
 
@@ -387,7 +387,7 @@ QueryResourceIT.java
 include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResourceIT.java[]
 ----
 
-Define the [hotspot=systemContainer file=2]`systemContainer` test container to start up the `system-java8` docker image, the [hotspot=graphqlContainer file=2]`graphqlContainer` test container to start up the `graphql` docker image, and the [hotspot=libertyContainer file=2]`libertyContainer` test container to start up the `query` docker image. Make sure that the containers use the same network.
+Define the [hotspot=systemContainer file=2]`systemContainer` test container to start up the `system-java8` image, the [hotspot=graphqlContainer file=2]`graphqlContainer` test container to start up the `graphql` image, and the [hotspot=libertyContainer file=2]`libertyContainer` test container to start up the `query` image. Make sure that the containers use the same network.
 
 The [hotspot=testcontainers file=2]`@Testcontainers` annotation finds all fields that are annotated with the [hotspot=container file=2]`@Container` annotation and calls their container lifecycle methods. The `static` function declaration on each container indicates that this container will be started only once before any test method is executed and stopped after the last test method is executed.
 
