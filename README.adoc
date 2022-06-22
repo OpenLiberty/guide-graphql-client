@@ -159,7 +159,7 @@ docker build -t graphql:1.0-SNAPSHOT graphql/.
 docker build -t query:1.0-SNAPSHOT query/.
 ----
 
-Run these Docker images using the provided `startContainers` script. The script will create a network for the services to communicate through. It will create the two `system` microservices, a `graphql` microservice, and a `query` microservice that will interact with eachother.
+Run these Docker images using the provided `startContainers` script. The script will create a network for the services to communicate through. It will create the two `system` microservices, a `graphql` microservice, and a `query` microservice that will interact with each other.
 
 include::{common-includes}/os-tabs.adoc[]
 
