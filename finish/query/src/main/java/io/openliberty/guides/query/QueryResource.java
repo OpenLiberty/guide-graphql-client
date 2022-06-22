@@ -12,29 +12,27 @@
 // end::copyright[]
 package io.openliberty.guides.query;
 
-import java.util.Set;
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
+import io.openliberty.guides.graphql.models.NoteInfo;
 import io.openliberty.guides.graphql.models.SystemInfo;
 import io.openliberty.guides.graphql.models.SystemLoad;
-import io.openliberty.guides.graphql.models.NoteInfo;
 import io.openliberty.guides.query.client.GraphQlClient;
-import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
+import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @ApplicationScoped
 @Path("query")
 public class QueryResource {
 
     // tag::clientBuilder[]
-    private GraphQlClient gc = GraphQlClientBuilder.newBuilder()
+    private GraphQlClient gc = TypesafeGraphQLClientBuilder.newBuilder()
                                                    .build(GraphQlClient.class);
     // end::clientBuilder[]
 

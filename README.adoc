@@ -33,9 +33,11 @@ Learn how to use a GraphQL client to run GraphQL queries and mutations.
 
 GraphQL is an open source data query language. Unlike REST APIs, each request sent to a GraphQL service goes to a single HTTP endpoint. To learn more about GraphQL, see the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide.
 
-You will start with the `graphql` microservice created as part of the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide. Then, you'll use the https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] to create a `query` microservice that will make requests to the GraphQL microservice. The GraphQL microservice retrieves data from multiple `system` microservices. 
+You will start with the `graphql` microservice created as part of the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide. Then, you'll use the https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] to create a `query` microservice that will make requests to the `graphql` microservice. The `graphql` microservice retrieves data from multiple `system` microservices.
 
 The results of the requests will be displayed at REST endpoints. OpenAPI will be used to help make the requests and display the data. To learn more about OpenAPI, check out the https://openliberty.io/guides/microprofile-openapi.html[Documenting RESTful APIs^] guide.
+
+image::architecture.png[GraphQL client application architecture where multiple system microservices are integrated behind the graphql service, and the query service uses GraphQL client APIs to access the graphql service. align="center"]
 
 == Additional prerequisites
 
@@ -70,7 +72,7 @@ The typesafe client interface contains a function for each resolver available in
 GraphQlClient.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/query/src/main/java/io/openliberty/guides/client/GraphQlClient.java[]
+include::finish/query/src/main/java/io/openliberty/guides/query/client/GraphQlClient.java[]
 ----
 
 The [hotspot file=0]`GraphQlClient` interface is annotated with the [hotspot=clientApi file=0]`@GraphQlClientApi` annotation. This annotation denotes that this interface is used to create a typesafe GraphQL client.
@@ -91,12 +93,12 @@ Because the [hotspot=editNote file=0]`editNote` resolver is for a `mutation` ope
 QueryResource.java
 [source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/query/src/main/java/io/openliberty/guides/client/QueryResource.java[]
+include::finish/query/src/main/java/io/openliberty/guides/query/QueryResource.java[]
 ----
 
-The [hotspot file=1]`QueryResource` class uses the `GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would be making requests to an external GraphQL API, or you would be doing further manipulation of the data after retrieval.
+The [hotspot file=1]`QueryResource` class uses the [hotspot=clientBuilder file=1]`GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would be making requests to an external GraphQL API, or you would be doing further manipulation of the data after retrieval.
 
-Use the [hotspot=clientBuilder file=1]`GraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml`. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
+Use the [hotspot=clientBuilder file=1]`TypesafeGraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml`. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
 
 Add the SmallRye GraphQL client dependency to the project configuration file.
 
@@ -113,7 +115,7 @@ pom.xml
 include::finish/query/pom.xml[]
 ----
 
-The [hotspot=graphQLClientDependency file=2]`smallrye-graphql-client` dependency provides the classes that use to interact with a `graphql` microservice.
+The [hotspot=clientDependenies file=2]`smallrye-graphql-client` dependencies provide the classes that use to interact with a `graphql` microservice.
 
 To get the service running, the Liberty server needs to be correctly configured.
 
@@ -157,7 +159,7 @@ docker build -t graphql:1.0-SNAPSHOT graphql/.
 docker build -t query:1.0-SNAPSHOT query/.
 ----
 
-Run these Docker images using the provided `startContainers` script. The script will create a network for the services to communicate through. It will create the two `system` microservices, a `graphql` microservice, and a `query` microservice that will interact with eachother.
+Run these Docker images using the provided `startContainers` script. The script will create a network for the services to communicate through. It will create the two `system` microservices, a `graphql` microservice, and a `query` microservice that will interact with each other.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -330,6 +332,109 @@ include::{common-includes}/os-tabs.adoc[]
 ./scripts/stopContainers.sh
 ```
 --
+
+
+== Testing the application
+
+Although you can test your application manually, you should rely on automated tests. In this section, you'll create integration tests using Testcontainers to verify that the basic operations you implemented function correctly. 
+
+First, create a RESTful client interface for the `query` microservice.
+
+[role="code_command hotspot file=0" ,subs="quotes"]
+----
+#Create the `QueryResourceClient.java` interface.#
+`query/src/test/java/it/io/openliberty/guides/query/QueryResourceClient.java`
+----
+
+// file 0
+QueryResourceClient.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResourceClient.java[]
+----
+
+This interface declares [hotspot=querySystem file=0]`querySystem()`, [hotspot=querySystemLoad file=0]`querySystemLoad()`, and [hotspot=editNote file=0]`editNote()` methods for accessing each of the endpoints that are set up to access the `query` microservice.
+
+Create the test container class that access the `query` image that you built in previous section.
+
+[role="code_command hotspot file=1" ,subs="quotes"]
+----
+#Create the `LibertyContainer.java` file.#
+`query/src/test/java/it/io/openliberty/guides/query/LibertyContainer.java`
+----
+
+// file 1
+LibertyContainer.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/src/test/java/it/io/openliberty/guides/query/LibertyContainer.java[]
+----
+
+The [hotspot=createRestClient file=1]`createRestClient()` method creates a REST client instance with the `QueryResourceClient` interface. The [hotspot=getBaseURL file=1]`getBaseURL()` method constructs the URL that can access the `query` image.
+
+Now, you'll create your integration test cases.
+
+[role="code_command hotspot file=2" ,subs="quotes"]
+----
+#Create the `QueryResourceIT.java` file.#
+`query/src/test/java/it/io/openliberty/guides/query/QueryResourceIT.java`
+----
+
+// file 2
+QueryResourceIT.java
+[source, java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResourceIT.java[]
+----
+
+Define the [hotspot=systemContainer file=2]`systemContainer` test container to start up the `system-java8` image, the [hotspot=graphqlContainer file=2]`graphqlContainer` test container to start up the `graphql` image, and the [hotspot=libertyContainer file=2]`libertyContainer` test container to start up the `query` image. Make sure that the containers use the same network.
+
+The [hotspot=testcontainers file=2]`@Testcontainers` annotation finds all fields that are annotated with the [hotspot=container file=2]`@Container` annotation and calls their container lifecycle methods. The `static` function declaration on each container indicates that this container will be started only once before any test method is executed and stopped after the last test method is executed.
+
+The [hotspot=testGetSystem file=2]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostname` specified to `system-java8`.
+
+The [hotspot=testGetSystemLoad file=2]`testGetSystemLoad()` verifies the `/query/systemLoad/{hostnames}` endpoint with `hostnames` specified to `system-java8`.
+
+The [hotspot=testEditNote file=2]`testEditNote()` verifies the mutation operation at the `/query/mutation/system/note` endpoint.
+
+// file 3
+pom.xml
+[source, xml, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/query/pom.xml[]
+----
+
+The required [hotspot=testDependenies file=3]`dependencies` had already been added to the [hotspot file=3]`pom.xml` Maven configuration file for you, including JUnit5, JBoss RESTEasy client, Glassfish JSON, Testcontainers, and Log4J libraries.
+
+To enable running the integration test by the Maven `verify` goal, the [hotspot=failsafe file=3]`maven-failsafe-plugin` plugin is also required.
+
+=== Running the tests
+
+You can run the Maven `verify` goal, which compiles the java files, starts the containers, runs the tests, and then stops the containers.
+
+ifndef::cloud-hosted[]
+[role='command']
+```
+mvn verify
+```
+endif::[]
+
+You will see the following output:
+
+[source,role="no_copy"]
+----
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running it.io.openliberty.guides.query.QueryResourceIT
+...
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.694 s - in it.io.openliberty.guides.query.QueryResourceIT
+
+Results :
+
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+----
+
 
 == Great work! You're done!
 
