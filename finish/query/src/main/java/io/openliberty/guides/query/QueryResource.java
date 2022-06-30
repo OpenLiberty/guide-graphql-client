@@ -41,7 +41,7 @@ public class QueryResource {
     @Produces(MediaType.APPLICATION_JSON)
     public SystemInfo querySystem(@PathParam("hostname") String hostname) {
         // tag::clientUsed1[]
-        return gc.system(hostname);
+        return gc.getSystemInfo(hostname);
         // end::clientUsed1[]
     }
 
@@ -51,7 +51,7 @@ public class QueryResource {
     public SystemLoad[] querySystemLoad(@PathParam("hostnames") String hostnames) {
         String[] hostnameArray = hostnames.split(",");
         // tag::clientUsed2[]
-        return gc.systemLoad(hostnameArray);
+        return gc.getSystemLoad(hostnameArray);
         // end::clientUsed2[]
     }
 
@@ -61,7 +61,7 @@ public class QueryResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response editNote(NoteInfo text) {
         // tag::clientUsed3[]
-        if (gc.editNote(text.getHostname(), text.getText())) {
+        if (gc.setNote(text.getHostname(), text.getText())) {
         // end::clientUsed3[]
             return Response.ok().build();
         } else {
