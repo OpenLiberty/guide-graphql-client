@@ -24,25 +24,26 @@ import io.smallrye.graphql.client.typesafe.api.GraphQLClientApi;
 @GraphQLClientApi
 // end::clientApi[]
 public interface GraphQlClient {
+    
     // tag::querySystemTag[]
-    @Query("system")
+    @Query
     // end::querySystemTag[]
     // tag::systemInfo[]
-    SystemInfo getSystemInfo(@Name("hostname") String host);
+    SystemInfo system(@Name("hostname") String hostname);
     // end::systemInfo[]
 
     // tag::querySystemLoadTag[]
     @Query("systemLoad")
     // end::querySystemLoadTag[]
     // tag::systemLoad[]
-    SystemLoad[] getSystemLoad(@Name("hostnames") String[] hosts);
+    SystemLoad[] getSystemLoad(@Name("hostnames") String[] hostnames);
     // end::systemLoad[]
 
     // tag::mutationTag[]
-    @Mutation("editNote")
+    @Mutation
     // end::mutationTag[]
     // tag::editNote[]
-    boolean setNote(@Name("hostname") String host, @Name("note") String note);
+    boolean editNote(@Name("hostname") String host, @Name("note") String note);
     // end::editNote[]
 
 }
