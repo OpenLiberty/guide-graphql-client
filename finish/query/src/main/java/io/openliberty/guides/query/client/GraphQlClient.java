@@ -24,7 +24,6 @@ import io.smallrye.graphql.client.typesafe.api.GraphQLClientApi;
 @GraphQLClientApi
 // end::clientApi[]
 public interface GraphQlClient {
-    
     // tag::querySystemTag[]
     @Query
     // end::querySystemTag[]
