@@ -419,6 +419,13 @@ mvn verify
 ```
 endif::[]
 
+ifdef::-hosted[]
+```bash
+cd /home/project/guide-graphql-client/start/query
+mvn verify
+```
+endif::[]
+
 You will see the following output:
 
 [source,role="no_copy"]
