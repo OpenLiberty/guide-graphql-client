@@ -412,10 +412,19 @@ To enable running the integration test by the Maven `verify` goal, the [hotspot=
 
 You can run the Maven `verify` goal, which compiles the java files, starts the containers, runs the tests, and then stops the containers.
 
+ifndef::cloud-hosted[]
 [role='command']
 ```
 mvn verify
 ```
+endif::[]
+
+ifdef::-hosted[]
+```bash
+cd /home/project/guide-graphql-client/start/query
+mvn verify
+```
+endif::[]
 
 You will see the following output:
 
