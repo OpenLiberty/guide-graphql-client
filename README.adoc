@@ -81,7 +81,9 @@ Inside the interface, a function header is written for each resolver available i
 
 For example, the [hotspot=systemInfo file=0]`system()` function maps to the `system` resolver. The resolver returns a `SystemInfo` object, which is described by the `SystemInfo` class. Thus, the [hotspot=systemInfo file=0]`system()` function returns the type `SystemInfo`.
 
-Because the [hotspot=editNote file=0]`editNote` resolver is for a `mutation` operation, it has the [hotspot=mutationTag file=0]`@Mutation` annotation on it. A `mutation` operation allows you to modify data, in this case, it allows you to add and edit a note to the system service. If the [hotspot=mutationTag file=0]`@Mutation` annotation was not placed on the function, it would be treated as if it mapped to a `query` operation.
+The name of each resolver is the method name, but it can be overridden with the [hotspot=querySystemTag hotspot=querySystemLoadTag file=0]`@Query` or [hotspot=mutationTag file=0]`@Mutation` annotations. For example, the name of the method [hotspot=systemLoad file=0]`getSystemLoad` is overridden as [hotspot=querySystemLoadTag file=0]`systemLoad`. The GraphQL request that goes over the wire will use the name overridden by the `@Query` and `@Mutation` annotation. Similarly, the name of the function inputs can be overridden by the [hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=0]`@Name` annotation. For example, input [hotspot=editNote file=0]`host` is overridden as [hotspot=editNote file=0]`hostname` in the [hotspot=editNote file=0]`editNote()` function. 
+
+The [hotspot=editNote file=0]`editNote` `mutation` operation has the [hotspot=mutationTag file=0]`@Mutation` annotation on it. A `mutation` operation allows you to modify data, in this case, it allows you to add and edit a note to the system service. If the [hotspot=mutationTag file=0]`@Mutation` annotation was not placed on the function, it would be treated as if it mapped to a `query` operation. 
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
