@@ -12,6 +12,7 @@
 // end::copyright[]
 package io.openliberty.guides.query.client;
 
+import org.eclipse.microprofile.graphql.Query;
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
 
@@ -23,20 +24,25 @@ import io.smallrye.graphql.client.typesafe.api.GraphQLClientApi;
 @GraphQLClientApi
 // end::clientApi[]
 public interface GraphQlClient {
-
+    // tag::querySystemTag[]
+    @Query
+    // end::querySystemTag[]
     // tag::systemInfo[]
     SystemInfo system(@Name("hostname") String hostname);
     // end::systemInfo[]
 
+    // tag::querySystemLoadTag[]
+    @Query("systemLoad")
+    // end::querySystemLoadTag[]
     // tag::systemLoad[]
-    SystemLoad[] systemLoad(@Name("hostnames") String[] hostnames);
+    SystemLoad[] getSystemLoad(@Name("hostnames") String[] hostnames);
     // end::systemLoad[]
 
     // tag::mutationTag[]
     @Mutation
     // end::mutationTag[]
     // tag::editNote[]
-    boolean editNote(@Name("hostname") String hostname, @Name("note") String note);
+    boolean editNote(@Name("hostname") String host, @Name("note") String note);
     // end::editNote[]
 
 }

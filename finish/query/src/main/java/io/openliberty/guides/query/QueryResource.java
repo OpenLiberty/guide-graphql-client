@@ -51,7 +51,7 @@ public class QueryResource {
     public SystemLoad[] querySystemLoad(@PathParam("hostnames") String hostnames) {
         String[] hostnameArray = hostnames.split(",");
         // tag::clientUsed2[]
-        return gc.systemLoad(hostnameArray);
+        return gc.getSystemLoad(hostnameArray);
         // end::clientUsed2[]
     }
 
