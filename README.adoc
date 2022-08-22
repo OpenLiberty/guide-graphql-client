@@ -420,7 +420,6 @@ mvn verify
 ```
 endif::[]
 
-
 ifdef::cloud-hosted[]
 ```bash
 cd /home/project/guide-graphql-client/start/query
