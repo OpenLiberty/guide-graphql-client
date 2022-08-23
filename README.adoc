@@ -191,9 +191,7 @@ To access the client service, visit the http://localhost:9084/openapi/ui/[^] URL
 
 === Try the query operations
 
-From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. This request retrieves the system properties for the `hostname` specified. When the `hostname` is specified to `system-java8`, but you can try out the operations using the hostname `system-java11` as well. 
-
-The response is similar to the following example:
+From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. This request retrieves the system properties for the `hostname` specified. When the `hostname` is specified to `system-java8`, but you can try out the operations using the hostname `system-java11` as well. The response is similar to the following example:
 
 endif::[]
 
@@ -312,6 +310,7 @@ Content-Language: en-US
 ```
 endif::[]
 
+You can see the note you added to the system service at the `GET /query/system/{hostname}` endpoint.
 
 == Tearing down the environment
 
