@@ -405,7 +405,7 @@ pom.xml
 include::finish/query/pom.xml[]
 ----
 
-The required [hotspot=testDependenies file=3]`dependencies` is already added to the [hotspot file=3]`pom.xml` Maven configuration file for you, including JUnit5, JBoss RESTEasy client, Glassfish JSON, Testcontainers, and Log4J libraries.
+The required [hotspot=testDependenies file=3]`dependencies` are already added to the [hotspot file=3]`pom.xml` Maven configuration file for you, including JUnit5, JBoss RESTEasy client, Glassfish JSON, Testcontainers, and Log4J libraries.
 
 To enable running the integration test by the Maven `verify` goal, the [hotspot=failsafe file=3]`maven-failsafe-plugin` plugin is also required.
 
