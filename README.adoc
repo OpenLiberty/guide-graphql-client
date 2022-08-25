@@ -58,7 +58,7 @@ include::{common-includes}/gitclone.adoc[]
 
 Navigate to the `start` directory to begin.
 
-The https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] will be used to implement the GraphQL client service. SmallRye GraphQL client supports two types of clients: typesafe and dynamic clients. A typesafe client provides ease of use and a high-level approach, while a dynamic client provides a more customizable and low-level approach to handle operations and responses. You will implement a typesafe client microservice. 
+The https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] is used to implement the GraphQL client service. The SmallRye GraphQL client supports two types of clients: typesafe and dynamic. A typesafe client is easy to use and provides a high-level approach, while a dynamic client provides a more customizable and low-level approach to handle operations and responses. You will implement a typesafe client microservice. 
 
 The typesafe client interface contains a function for each resolver available in the `graphql` microservice. The JSON objects returned by the `graphql` microservice are converted to Java objects.
 
@@ -98,9 +98,9 @@ QueryResource.java
 include::finish/query/src/main/java/io/openliberty/guides/query/QueryResource.java[]
 ----
 
-The [hotspot file=1]`QueryResource` class uses the [hotspot=clientBuilder file=1]`GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would be making requests to an external GraphQL API, or you would be doing further manipulation of the data after retrieval.
+The [hotspot file=1]`QueryResource` class uses the [hotspot=clientBuilder file=1]`GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you make requests to an external GraphQL API, or do further manipulation of the data after retrieval.
 
-Use the [hotspot=clientBuilder file=1]`TypesafeGraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml`. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
+Use the [hotspot=clientBuilder file=1]`TypesafeGraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml` file. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
 
 Add the SmallRye GraphQL client dependency to the project configuration file.
 
@@ -117,9 +117,9 @@ pom.xml
 include::finish/query/pom.xml[]
 ----
 
-The [hotspot=clientDependenies file=2]`smallrye-graphql-client` dependencies provide the classes that use to interact with a `graphql` microservice.
+The [hotspot=clientDependenies file=2]`smallrye-graphql-client` dependencies provide the classes that you use to interact with a `graphql` microservice.
 
-To get the service running, the Liberty server needs to be correctly configured.
+To run the service, you must correctly configure the Liberty server.
 
 [role="code_command hotspot file=3" ,subs="quotes"]
 ----
@@ -151,7 +151,7 @@ The `mvn install` command compiles and packages the object types you created to 
 
 include::{common-includes}/ol-icr-full-docker-pull.adoc[]
 
-Dockerfiles have already been set up for you. Build your Docker images with the following commands:
+Dockerfiles are already set up for you. Build your Docker images with the following commands:
 
 [role='command']
 ----
@@ -161,7 +161,7 @@ docker build -t graphql:1.0-SNAPSHOT graphql/.
 docker build -t query:1.0-SNAPSHOT query/.
 ----
 
-Run these Docker images using the provided `startContainers` script. The script will create a network for the services to communicate through. It will create the two `system` microservices, a `graphql` microservice, and a `query` microservice that will interact with each other.
+Run these Docker images using the provided `startContainers` script. The script creates a network for the services to communicate through. It creates the two `system` microservices, a `graphql` microservice, and a `query` microservice that interact with each other.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -181,7 +181,7 @@ include::{common-includes}/os-tabs.adoc[]
 ```
 --
 
-The containers may take some time to become available. 
+The containers might take some time to become available. 
 
 == Accessing the application
 
@@ -201,14 +201,14 @@ To access the client service, there are several available REST endpoints that te
 
 **Try the query operations**
 
-First, make a GET request to the ***/query/system/{hostname}*** endpoint by the following command. This request retrieves the system properties for the ***hostname*** specified.
+First, make a GET request to the ***/query/system/{hostname}*** endpoint by the following command. This request retrieves the system properties for the specified ***hostname***.
 
 The ***hostname*** is specified to ***system-java8***. You can try out the operations using the hostname ***system-java11*** as well. 
 
 ```bash
 curl -s 'http://localhost:9084/query/system/system-java8' | jq
 ```
-You can expect response similar to the following example:
+You can expect a response similar to the following example:
 
 endif::[]
 
@@ -356,7 +356,7 @@ include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResource
 
 This interface declares [hotspot=querySystem file=0]`querySystem()`, [hotspot=querySystemLoad file=0]`querySystemLoad()`, and [hotspot=editNote file=0]`editNote()` methods for accessing each of the endpoints that are set up to access the `query` microservice.
 
-Create the test container class that access the `query` image that you built in previous section.
+Create the test container class that accesses the `query` image that you built in previous section.
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -373,7 +373,7 @@ include::finish/query/src/test/java/it/io/openliberty/guides/query/LibertyContai
 
 The [hotspot=createRestClient file=1]`createRestClient()` method creates a REST client instance with the `QueryResourceClient` interface. The [hotspot=getBaseURL file=1]`getBaseURL()` method constructs the URL that can access the `query` image.
 
-Now, you'll create your integration test cases.
+Now, create your integration test cases.
 
 [role="code_command hotspot file=2" ,subs="quotes"]
 ----
@@ -405,7 +405,7 @@ pom.xml
 include::finish/query/pom.xml[]
 ----
 
-The required [hotspot=testDependenies file=3]`dependencies` had already been added to the [hotspot file=3]`pom.xml` Maven configuration file for you, including JUnit5, JBoss RESTEasy client, Glassfish JSON, Testcontainers, and Log4J libraries.
+The required [hotspot=testDependenies file=3]`dependencies` is already added to the [hotspot file=3]`pom.xml` Maven configuration file for you, including JUnit5, JBoss RESTEasy client, Glassfish JSON, Testcontainers, and Log4J libraries.
 
 To enable running the integration test by the Maven `verify` goal, the [hotspot=failsafe file=3]`maven-failsafe-plugin` plugin is also required.
 
