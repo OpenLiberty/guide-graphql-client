@@ -31,7 +31,7 @@ Learn how to use a GraphQL client to run GraphQL queries and mutations.
 
 == What you'll learn
 
-GraphQL is an open source data query language. Unlike REST APIs, each request sent to a GraphQL service goes to a single HTTP endpoint. This guide assumes you have a basic understanding of GraphQL concepts. If you're new to GraphQL, you might want to start with the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide first.
+GraphQL is an open source data query language. You can use a GraphQL service to obtain data from multiple sources, such as APIs, databases, and other services. GraphQL services require less data fetching than REST services, which results in faster application load times and lower data transfer costs. This guide assumes you have a basic understanding of https://openliberty.io/docs/latest/microprofile-graphql.html[GraphQL concepts^]. If you're new to GraphQL, you might want to start with the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide first.
 
 You'll use the https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] to create a `query` microservice that will make requests to the `graphql` microservice. The `graphql` microservice retrieves data from multiple `system` microservices and is identical to the one created as part of the https://openliberty.io/guides/microprofile-graphql.html[Optimizing REST queries for microservices with GraphQL^] guide. 
 
@@ -83,7 +83,7 @@ For example, the [hotspot=systemInfo file=0]`system()` function maps to the `sys
 
 The name of each resolver is the method name, but it can be overridden with the [hotspot=querySystemTag hotspot=querySystemLoadTag file=0]`@Query` or [hotspot=mutationTag file=0]`@Mutation` annotations. For example, the name of the method [hotspot=systemLoad file=0]`getSystemLoad` is overridden as [hotspot=querySystemLoadTag file=0]`systemLoad`. The GraphQL request that goes over the wire will use the name overridden by the `@Query` and `@Mutation` annotation. Similarly, the name of the function inputs can be overridden by the [hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=0]`@Name` annotation. For example, input [hotspot=editNote file=0]`host` is overridden as [hotspot=editNote file=0]`hostname` in the [hotspot=editNote file=0]`editNote()` function. 
 
-The [hotspot=editNote file=0]`editNote` `mutation` operation has the [hotspot=mutationTag file=0]`@Mutation` annotation on it. A `mutation` operation allows you to modify data, in this case, it allows you to add and edit a note to the system service. If the [hotspot=mutationTag file=0]`@Mutation` annotation was not placed on the function, it would be treated as if it mapped to a `query` operation. 
+The [hotspot=editNote file=0]`editNote` `mutation` operation has the [hotspot=mutationTag file=0]`@Mutation` annotation on it. A `mutation` operation allows you to modify data, in this case, it allows you to add and edit a note to the system service. If the [hotspot=mutationTag file=0]`@Mutation` annotation were not placed on the function, it would be treated as if it mapped to a `query` operation. 
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -98,9 +98,9 @@ QueryResource.java
 include::finish/query/src/main/java/io/openliberty/guides/query/QueryResource.java[]
 ----
 
-The [hotspot file=1]`QueryResource` class uses the [hotspot=clientBuilder file=1]`GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you make requests to an external GraphQL API, or do further manipulation of the data after retrieval.
+The [hotspot file=1]`QueryResource` class uses the [hotspot=clientBuilder file=1]`GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would make requests to an external GraphQL API, and you might do further manipulation of the data after retrieval.
 
-Use the [hotspot=clientBuilder file=1]`TypesafeGraphQLClientBuilder` class to create a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml` file. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
+The [hotspot=clientBuilder file=1]`TypesafeGraphQLClientBuilder` class creates a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml` file. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
 
 Add the SmallRye GraphQL client dependency to the project configuration file.
 
@@ -191,7 +191,7 @@ To access the client service, visit the http://localhost:9084/openapi/ui/[^] URL
 
 === Try the query operations
 
-From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. This request retrieves the system properties for the `hostname` specified. When the `hostname` is specified to `system-java8`, but you can try out the operations using the hostname `system-java11` as well. The response is similar to the following example:
+From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. This request retrieves the system properties for the `hostname` specified. The response is similar to the following example when the `hostname` is specified to `system-java8`, but you can try out the operations using the hostname `system-java11` as well:
 
 endif::[]
 
@@ -234,7 +234,7 @@ endif::[]
 
 ifndef::cloud-hosted[]
 
-You can retrieve the information about the resource usage of any number of system services at the `GET /query/systemLoad/{hostnames}` endpoint. When the `hostnames` are specified to `system-java8,system-java11`. The response is similar to the following example:
+You can retrieve the information about the resource usage of any number of system services at the `GET /query/systemLoad/{hostnames}` endpoint. When the `hostnames` are specified to `system-java8,system-java11`, the response is similar to the following example:
 
 endif::[]
 
@@ -286,7 +286,7 @@ You can also make requests to add a note to a system service at the `POST /query
 }
 ----
 
-You will recieve a `200` response code if the request is processed succesfully. 
+You will receive a `200` response code if the request is processed succesfully. 
 endif::[]
 
 ifdef::cloud-hosted[]
@@ -392,9 +392,9 @@ Define the [hotspot=systemContainer file=2]`systemContainer` test container to s
 
 The [hotspot=testcontainers file=2]`@Testcontainers` annotation finds all fields that are annotated with the [hotspot=container file=2]`@Container` annotation and calls their container lifecycle methods. The `static` function declaration on each container indicates that this container will be started only once before any test method is executed and stopped after the last test method is executed.
 
-The [hotspot=testGetSystem file=2]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostname` specified to `system-java8`.
+The [hotspot=testGetSystem file=2]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostname` specified as `system-java8`.
 
-The [hotspot=testGetSystemLoad file=2]`testGetSystemLoad()` verifies the `/query/systemLoad/{hostnames}` endpoint with `hostnames` specified to `system-java8`.
+The [hotspot=testGetSystemLoad file=2]`testGetSystemLoad()` verifies the `/query/systemLoad/{hostnames}` endpoint with `hostnames` specified as `system-java8`.
 
 The [hotspot=testEditNote file=2]`testEditNote()` verifies the mutation operation at the `/query/mutation/system/note` endpoint.
 
