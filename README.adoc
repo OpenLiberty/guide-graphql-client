@@ -98,7 +98,7 @@ QueryResource.java
 include::finish/query/src/main/java/io/openliberty/guides/query/QueryResource.java[]
 ----
 
-The [hotspot file=1]`QueryResource` class uses the [hotspot=clientBuilder file=1]`GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would make requests to an external GraphQL API, and you might do further manipulation of the data after retrieval.
+The [hotspot file=1]`QueryResource` class uses the [hotspot=clientBuilder file=1]`GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would make requests to an external GraphQL service, and you might do further manipulation of the data after retrieval.
 
 The [hotspot=clientBuilder file=1]`TypesafeGraphQLClientBuilder` class creates a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml` file. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
 
