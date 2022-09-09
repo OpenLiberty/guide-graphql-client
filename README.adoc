@@ -392,9 +392,9 @@ Define the [hotspot=systemContainer file=2]`systemContainer` test container to s
 
 The [hotspot=testcontainers file=2]`@Testcontainers` annotation finds all fields that are annotated with the [hotspot=container file=2]`@Container` annotation and calls their container lifecycle methods. The `static` function declaration on each container indicates that this container will be started only once before any test method is executed and stopped after the last test method is executed.
 
-The [hotspot=testGetSystem file=2]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostname` specified as `system-java8`.
+The [hotspot=testGetSystem file=2]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostname` set to `system-java8`.
 
-The [hotspot=testGetSystemLoad file=2]`testGetSystemLoad()` verifies the `/query/systemLoad/{hostnames}` endpoint with `hostnames` specified as `system-java8`.
+The [hotspot=testGetSystemLoad file=2]`testGetSystemLoad()` verifies the `/query/systemLoad/{hostnames}` endpoint with `hostnames` set to `system-java8`.
 
 The [hotspot=testEditNote file=2]`testEditNote()` verifies the mutation operation at the `/query/mutation/system/note` endpoint.
 
