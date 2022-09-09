@@ -203,7 +203,7 @@ To access the client service, there are several available REST endpoints that te
 
 First, make a GET request to the ***/query/system/{hostname}*** endpoint by the following command. This request retrieves the system properties for the specified ***hostname***.
 
-The ***hostname*** is specified to ***system-java8***. You can try out the operations using the hostname ***system-java11*** as well. 
+The ***hostname*** is set to ***system-java8***. You can try out the operations using the hostname ***system-java11*** as well. 
 
 ```bash
 curl -s 'http://localhost:9084/query/system/system-java8' | jq
@@ -234,14 +234,14 @@ endif::[]
 
 ifndef::cloud-hosted[]
 
-You can retrieve the information about the resource usage of any number of system services at the `GET /query/systemLoad/{hostnames}` endpoint. When the `hostnames` are specified to `system-java8,system-java11`, the response is similar to the following example:
+You can retrieve the information about the resource usage of any number of system services at the `GET /query/systemLoad/{hostnames}` endpoint. The following example shows what happens when the `hostnames` are set to `system-java8,system-java11`:
 
 endif::[]
 
 ifdef::cloud-hosted[]
 
 You can retrieve the information about the resource usage of any number of system services by making a GET request at ***/query/systemLoad/{hostnames}*** endpoint. 
-The ***hostnames*** are specified to ***system-java8,system-java11***.
+The ***hostnames*** are set to ***system-java8,system-java11***.
 
 ```bash
 curl -s 'http://localhost:9084/query/systemLoad/system-java8,system-java11' | jq
