@@ -60,7 +60,7 @@ Navigate to the `start` directory to begin.
 
 The https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] is used to implement the GraphQL client service. The SmallRye GraphQL client supports two types of clients: typesafe and dynamic. A typesafe client is easy to use and provides a high-level approach, while a dynamic client provides a more customizable and low-level approach to handle operations and responses. You will implement a typesafe client microservice. 
 
-The typesafe client interface contains a function for each resolver available in the `graphql` microservice. The JSON objects returned by the `graphql` microservice are converted to Java objects.
+The typesafe client interface contains a method for each resolver available in the `graphql` microservice. The JSON objects returned by the `graphql` microservice are converted to Java objects.
 
 [role="code_command hotspot file=0" ,subs="quotes"]
 ----
@@ -77,13 +77,13 @@ include::finish/query/src/main/java/io/openliberty/guides/query/client/GraphQlCl
 
 The [hotspot file=0]`GraphQlClient` interface is annotated with the [hotspot=clientApi file=0]`@GraphQlClientApi` annotation. This annotation denotes that this interface is used to create a typesafe GraphQL client.
 
-Inside the interface, a function header is written for each resolver available in the `graphql` microservice. The names of the functions match the names of the resolvers in the GraphQL schema. Resolvers that require input variables have the input variables passed in using the [hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=0]`@Name` annotation on the function inputs. The return types of the functions should match those of the GraphQL resolvers.
+Inside the interface, a method header is written for each resolver available in the `graphql` microservice. The names of the methods match the names of the resolvers in the GraphQL schema. Resolvers that require input variables have the input variables passed in using the [hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=0]`@Name` annotation on the method inputs. The return types of the methods should match those of the GraphQL resolvers.
 
-For example, the [hotspot=systemInfo file=0]`system()` function maps to the `system` resolver. The resolver returns a `SystemInfo` object, which is described by the `SystemInfo` class. Thus, the [hotspot=systemInfo file=0]`system()` function returns the type `SystemInfo`.
+For example, the [hotspot=systemInfo file=0]`system()` method maps to the `system` resolver. The resolver returns a `SystemInfo` object, which is described by the `SystemInfo` class. Thus, the [hotspot=systemInfo file=0]`system()` method returns the type `SystemInfo`.
 
-The name of each resolver is the method name, but it can be overridden with the [hotspot=querySystemTag hotspot=querySystemLoadTag file=0]`@Query` or [hotspot=mutationTag file=0]`@Mutation` annotations. For example, the name of the method [hotspot=systemLoad file=0]`getSystemLoad` is overridden as [hotspot=querySystemLoadTag file=0]`systemLoad`. The GraphQL request that goes over the wire will use the name overridden by the `@Query` and `@Mutation` annotation. Similarly, the name of the function inputs can be overridden by the [hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=0]`@Name` annotation. For example, input [hotspot=editNote file=0]`host` is overridden as [hotspot=editNote file=0]`hostname` in the [hotspot=editNote file=0]`editNote()` function. 
+The name of each resolver is the method name, but it can be overridden with the [hotspot=querySystemTag hotspot=querySystemLoadTag file=0]`@Query` or [hotspot=mutationTag file=0]`@Mutation` annotations. For example, the name of the method [hotspot=systemLoad file=0]`getSystemLoad` is overridden as [hotspot=querySystemLoadTag file=0]`systemLoad`. The GraphQL request that goes over the wire will use the name overridden by the `@Query` and `@Mutation` annotation. Similarly, the name of the method inputs can be overridden by the [hotspot=systemInfo hotspot=systemLoad hotspot=editNote file=0]`@Name` annotation. For example, input [hotspot=editNote file=0]`host` is overridden as [hotspot=editNote file=0]`hostname` in the [hotspot=editNote file=0]`editNote()` method. 
 
-The [hotspot=editNote file=0]`editNote` `mutation` operation has the [hotspot=mutationTag file=0]`@Mutation` annotation on it. A `mutation` operation allows you to modify data, in this case, it allows you to add and edit a note to the system service. If the [hotspot=mutationTag file=0]`@Mutation` annotation were not placed on the function, it would be treated as if it mapped to a `query` operation. 
+The [hotspot=editNote file=0]`editNote` `mutation` operation has the [hotspot=mutationTag file=0]`@Mutation` annotation on it. A `mutation` operation allows you to modify data, in this case, it allows you to add and edit a note to the system service. If the [hotspot=mutationTag file=0]`@Mutation` annotation were not placed on the method, it would be treated as if it mapped to a `query` operation. 
 
 [role="code_command hotspot file=1" ,subs="quotes"]
 ----
@@ -100,7 +100,7 @@ include::finish/query/src/main/java/io/openliberty/guides/query/QueryResource.ja
 
 The [hotspot file=1]`QueryResource` class uses the [hotspot=clientBuilder file=1]`GraphQlClient` interface to make requests to the `graphql` microservice and display the results. In a real application, you would make requests to an external GraphQL service, and you might do further manipulation of the data after retrieval.
 
-The [hotspot=clientBuilder file=1]`TypesafeGraphQLClientBuilder` class creates a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml` file. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` functions.
+The [hotspot=clientBuilder file=1]`TypesafeGraphQLClientBuilder` class creates a client object that implements the `GraphQlClient` interface and can interact with the `graphql` microservice. The `GraphQlClient` client can make requests to the URL specified by the [hotspot=url file=3]`graphql.server` variable in the `server.xml` file. The client is used in the [hotspot=clientUsed1 file=1]`querySystem()`, [hotspot=clientUsed2 file=1]`querySystemLoad()`, and [hotspot=clientUsed3 file=1]`editNote()` methods.
 
 Add the SmallRye GraphQL client dependency to the project configuration file.
 
