@@ -18,8 +18,8 @@
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :imagesdir: /img/guide/{projectid}
 :source-highlighter: prettify
-:page-seo-title: Implementing a GraphQL client microservice to run GraphQL queries and mutations
-:page-seo-description: A tutorial with examples on how to use the third-party Smallrye GraphQL client API to run GraphQL queries and mutations
+:page-seo-title: Implementing a GraphQL client microservice in Java to run GraphQL queries and mutations
+:page-seo-description: A tutorial with examples on how to use the third-party Smallrye GraphQL client API to develop a Java microservice to run GraphQL queries and mutations
 :guide-author: Open Liberty
 = Running GraphQL queries and mutations using a GraphQL client
 
