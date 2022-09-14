@@ -9,7 +9,7 @@
 :projectid: graphql-client
 :page-layout: guide-multipane
 :page-duration: 20 minutes
-:page-releasedate: 2022-09-16
+:page-releasedate: 2022-09-14
 :page-essential: false
 :page-description: Learn how to use a GraphQL client to run GraphQL queries and mutations.
 :page-tags: ['MicroProfile', 'Jakarta EE']
