@@ -18,4 +18,4 @@ cat system/Dockerfile graphql/Dockerfile query/Dockerfile
 
 docker pull "$DOCKER_USERNAME""/olguides:""$BUILD"
 
-../scripts/testApp.sh
+sudo ../scripts/testApp.sh
