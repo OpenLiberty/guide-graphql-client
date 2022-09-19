@@ -19,4 +19,4 @@ cat system/Dockerfile graphql/Dockerfile query/Dockerfile
 
 docker pull "openliberty/daily:latest"
 
-../scripts/testApp.sh
+sudo ../scripts/testApp.sh
