@@ -14,7 +14,7 @@ sed -i "\#<artifactId>liberty-maven-plugin</artifactId>#a<configuration><install
 sed -i "\#<looseApplication>false</looseApplication>#a<install><runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/"$DATE"/"$DRIVER"</runtimeUrl></install>"  graphql/pom.xml
 cat query/pom.xml graphql/pom.xml system/pom.xml
 
-sed -i "s;FROM icr.io/appcafe/open-liberty:full-..JAVA_VERSION.-openj9-ubi;FROM openliberty/daily:latest;g" system/Dockerfile graphql/Dockerfile query/Dockerfile
+sed -i "s;FROM icr.io/appcafe/open-liberty:full-..JAVA_VERSION.-openj9-ubi;FROM openliberty/daily:full-java11-openj9;g" system/Dockerfile graphql/Dockerfile query/Dockerfile
 cat system/Dockerfile graphql/Dockerfile query/Dockerfile
 
 docker pull "openliberty/daily:latest"
