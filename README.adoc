@@ -58,6 +58,12 @@ include::{common-includes}/gitclone.adoc[]
 
 Navigate to the `start` directory to begin.
 
+ifdef::cloud-hosted[]
+```bash
+cd /home/project/guide-graphql-client/start
+```
+endif::[]
+
 The https://github.com/smallrye/smallrye-graphql#client[SmallRye GraphQL client^] is used to implement the GraphQL client service. The SmallRye GraphQL client supports two types of clients: typesafe and dynamic. A typesafe client is easy to use and provides a high-level approach, while a dynamic client provides a more customizable and low-level approach to handle operations and responses. You will implement a typesafe client microservice. 
 
 The typesafe client interface contains a method for each resolver available in the `graphql` microservice. The JSON objects returned by the `graphql` microservice are converted to Java objects.
