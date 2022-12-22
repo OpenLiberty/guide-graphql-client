@@ -25,7 +25,7 @@ mvn -ntp -pl graphql liberty:stop
 
 mvn -ntp -pl query liberty:create liberty:install-feature liberty:deploy
 
-docker pull icr.io/appcafe/open-liberty:full-java11-openj9-ubi
+docker pull -q icr.io/appcafe/open-liberty:full-java11-openj9-ubi
 
 docker build -t system:1.0-java8-SNAPSHOT --build-arg JAVA_VERSION=java8 system/.
 docker build -t system:1.0-java11-SNAPSHOT --build-arg JAVA_VERSION=java11 system/.
