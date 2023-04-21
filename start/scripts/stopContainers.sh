@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker stop query graphql system-java8 system-java11
+docker stop query graphql system-java11 system-java17
 
 docker network rm graphql-app
