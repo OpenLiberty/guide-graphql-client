@@ -18,7 +18,7 @@ import org.eclipse.microprofile.graphql.Type;
 @Type("Note")
 @Description("Information about a note")
 public class NoteInfo {
-    
+
     @NonNull
     private String hostname;
 
