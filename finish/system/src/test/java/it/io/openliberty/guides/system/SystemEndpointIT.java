@@ -37,7 +37,7 @@ public class SystemEndpointIT {
     private static Client client;
 
     @BeforeAll
-    private static void setup() {
+    public static void setup() {
         client = ClientBuilder.newClient();
     }
 
