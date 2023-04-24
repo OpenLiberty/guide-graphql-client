@@ -42,7 +42,7 @@ public class SystemEndpointIT {
     }
 
     @AfterAll
-    private static void teardown() {
+    public static void teardown() {
         client.close();
     }
 
