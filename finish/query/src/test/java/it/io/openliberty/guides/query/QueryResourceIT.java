@@ -2,12 +2,11 @@
 /*******************************************************************************
  * Copyright (c) 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+ * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * http://www.eclipse.org/legal/epl-2.0/
  *
- * Contributors:
- *     IBM Corporation - Initial implementation
+ * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
 package it.io.openliberty.guides.query;
@@ -42,7 +41,7 @@ import io.openliberty.guides.graphql.models.SystemInfo;
 public class QueryResourceIT {
 
     private static Logger logger = LoggerFactory.getLogger(QueryResourceIT.class);
-    private static String system8ImageName = "system:1.0-java8-SNAPSHOT";
+    private static String system8ImageName = "system:1.0-java11-SNAPSHOT";
     private static String queryImageName = "query:1.0-SNAPSHOT";
     private static String graphqlImageName = "graphql:1.0-SNAPSHOT";
 
@@ -57,7 +56,7 @@ public class QueryResourceIT {
         = new GenericContainer<>(system8ImageName)
               .withNetwork(network)
               .withExposedPorts(9080)
-              .withNetworkAliases("system-java8")
+              .withNetworkAliases("system-java11")
               .withLogConsumer(new Slf4jLogConsumer(logger));
     // end::systemContainer[]
 
@@ -90,9 +89,9 @@ public class QueryResourceIT {
     @Test
     @Order(1)
     public void testGetSystem() {
-        System.out.println("TEST: Testing get system /system/system-java8");
-        SystemInfo systemInfo = client.querySystem("system-java8");
-        assertEquals(systemInfo.getHostname(), "system-java8");
+        System.out.println("TEST: Testing get system /system/system-java11");
+        SystemInfo systemInfo = client.querySystem("system-java11");
+        assertEquals(systemInfo.getHostname(), "system-java11");
         assertNotNull(systemInfo.getOsVersion(), "osVersion is null");
         assertNotNull(systemInfo.getJava(), "java is null");
         assertNotNull(systemInfo.getSystemMetrics(), "systemMetrics is null");
@@ -103,9 +102,9 @@ public class QueryResourceIT {
     @Test
     @Order(2)
     public void testGetSystemLoad() {
-        System.out.println("TEST: Testing get system load /systemLoad/system-java8");
-        List<SystemLoad> systemLoad = client.querySystemLoad("system-java8");
-        assertEquals(systemLoad.get(0).getHostname(), "system-java8");
+        System.out.println("TEST: Testing get system load /systemLoad/system-java11");
+        List<SystemLoad> systemLoad = client.querySystemLoad("system-java11");
+        assertEquals(systemLoad.get(0).getHostname(), "system-java11");
         SystemLoadData systemLoadData = systemLoad.get(0).getLoadData();
         assertNotNull(systemLoadData.getLoadAverage(), "loadAverage is null");
         assertNotNull(systemLoadData.getHeapUsed(), "headUsed is null");
@@ -119,11 +118,11 @@ public class QueryResourceIT {
     public void testEditNote() {
         System.out.println("TEST: Testing editing note /mutation/system/note");
         NoteInfo note = new NoteInfo();
-        note.setHostname("system-java8");
+        note.setHostname("system-java11");
         note.setText("I am trying out GraphQL on Open Liberty!");
         Response response = client.editNote(note);
         assertEquals(200, response.getStatus(), "Incorrect response code");
-        SystemInfo systemInfo = client.querySystem("system-java8");
+        SystemInfo systemInfo = client.querySystem("system-java11");
         assertEquals(systemInfo.getNote(), "I am trying out GraphQL on Open Liberty!");
     }
     // end::testEditNote[]

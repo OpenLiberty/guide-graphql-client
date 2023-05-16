@@ -1,4 +1,4 @@
-// Copyright (c) 2022 IBM Corporation and others.
+// Copyright (c) 2023 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -161,8 +161,8 @@ Dockerfiles are already set up for you. Build your Docker images with the follow
 
 [role='command']
 ----
-docker build -t system:1.0-java8-SNAPSHOT --build-arg JAVA_VERSION=java8 system/.
 docker build -t system:1.0-java11-SNAPSHOT --build-arg JAVA_VERSION=java11 system/.
+docker build -t system:1.0-java17-SNAPSHOT --build-arg JAVA_VERSION=java17 system/.
 docker build -t graphql:1.0-SNAPSHOT graphql/.
 docker build -t query:1.0-SNAPSHOT query/.
 ----
@@ -197,7 +197,7 @@ To access the client service, visit the http://localhost:9084/openapi/ui/[^] URL
 
 === Try the query operations
 
-From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. This request retrieves the system properties for the `hostname` specified. The following example shows what happens when the `hostname` is set to `system-java8`, but you can try out the operations using the hostname `system-java11` as well:
+From the OpenAPI UI, test the read operation at the `GET /query/system/{hostname}` endpoint. This request retrieves the system properties for the `hostname` specified. The following example shows what happens when the `hostname` is set to `system-java11`, but you can try out the operations using the hostname `system-java17` as well:
 
 endif::[]
 
@@ -209,10 +209,10 @@ To access the client service, there are several available REST endpoints that te
 
 First, make a GET request to the ***/query/system/{hostname}*** endpoint by the following command. This request retrieves the system properties for the specified ***hostname***.
 
-The ***hostname*** is set to ***system-java8***. You can try out the operations using the hostname ***system-java11*** as well. 
+The ***hostname*** is set to ***system-java11***. You can try out the operations using the hostname ***system-java17*** as well. 
 
 ```bash
-curl -s 'http://localhost:9084/query/system/system-java8' | jq
+curl -s 'http://localhost:9084/query/system/system-java11' | jq
 ```
 You can expect a response similar to the following example:
 
@@ -221,18 +221,18 @@ endif::[]
 [role='no_copy']
 ----
 {
-  "hostname": "system-java8",
+  "hostname": "system-java11",
   "java": {
-    "vendor": "International Business Machines Corporation",
-    "version": "1.8.0_312"
+    "vendor": "IBM Corporation",
+    "version": "11.0.18"
   },
   "osArch": "amd64",
   "osName": "Linux",
-  "osVersion": "5.10.25-linuxkit",
+  "osVersion": "5.15.0-67-generic",
   "systemMetrics": {
-    "heapSize": 2086993920,
+    "heapSize": 536870912,
     "nonHeapSize": -1,
-    "processors": 8
+    "processors": 2
   },
   "username": "default"
 }
@@ -240,17 +240,17 @@ endif::[]
 
 ifndef::cloud-hosted[]
 
-You can retrieve the information about the resource usage of any number of system services at the `GET /query/systemLoad/{hostnames}` endpoint. The following example shows what happens when the `hostnames` are set to `system-java8,system-java11`:
+You can retrieve the information about the resource usage of any number of system services at the `GET /query/systemLoad/{hostnames}` endpoint. The following example shows what happens when the `hostnames` are set to `system-java11,system-java17`:
 
 endif::[]
 
 ifdef::cloud-hosted[]
 
 You can retrieve the information about the resource usage of any number of system services by making a GET request at ***/query/systemLoad/{hostnames}*** endpoint. 
-The ***hostnames*** are set to ***system-java8,system-java11***.
+The ***hostnames*** are set to ***system-java11,system-java17***.
 
 ```bash
-curl -s 'http://localhost:9084/query/systemLoad/system-java8,system-java11' | jq
+curl -s 'http://localhost:9084/query/systemLoad/system-java11,system-java17' | jq
 ```
 
 You can expect the following response is similar to the following example:
@@ -261,19 +261,19 @@ endif::[]
 ----
 [
   {
-    "hostname": "system-java8",
+    "hostname": "system-java11",
     "loadData": {
-      "heapUsed": 34251904,
-      "loadAverage": 0.11,
-      "nonHeapUsed": 84034688
+      "heapUsed": 30090920,
+      "loadAverage": 0.08,
+      "nonHeapUsed": 87825316
     }
   },
   {
-    "hostname": "system-java11",
+    "hostname": "system-java17",
     "loadData": {
-      "heapUsed": 41953280,
-      "loadAverage": 0.11,
-      "nonHeapUsed": 112506520
+      "heapUsed": 39842888,
+      "loadAverage": 0.08,
+      "nonHeapUsed": 93098960
     }
   }
 ]
@@ -282,12 +282,12 @@ endif::[]
 ifndef::cloud-hosted[]
 === Try the mutation operation
 
-You can also make requests to add a note to a system service at the `POST /query/mutation/system/note` endpoint. To add a note to the system service running on Java 8, specify the following in the request body:
+You can also make requests to add a note to a system service at the `POST /query/mutation/system/note` endpoint. To add a note to the system service running on Java 11, specify the following in the request body:
 
 [role='command']
 ----
 {
-  "hostname": "system-java8",
+  "hostname": "system-java11",
   "text": "I am trying out GraphQL on Open Liberty!"
 }
 ----
@@ -302,17 +302,16 @@ You can also make POST requests to add a note to a system service at the ***/que
 To add a note to the system service running on Java 8, run the following command:
 
 ```bash
-curl -i -X 'POST' 'http://localhost:9084/query/mutation/system/note' -H 'Content-Type: application/json' -d '{"hostname": "system-java8","text": "I am trying out GraphQL on Open Liberty!"}'
+curl -i -X 'POST' 'http://localhost:9084/query/mutation/system/note' -H 'Content-Type: application/json' -d '{"hostname": "system-java11","text": "I am trying out GraphQL on Open Liberty!"}'
 ```
 
 You will recieve a `200` response code, similar to below, if the request is processed succesfully. 
 
 ```
 HTTP/1.1 200 OK
-X-Powered-By: Servlet/4.0
-Date: Fri, 20 May 2022 19:11:46 GMT
-Content-Length: 0
 Content-Language: en-US
+Content-Length: 0
+Date: Fri, 21 Apr 2023 14:17:47 GMT
 ```
 endif::[]
 
@@ -394,13 +393,13 @@ QueryResourceIT.java
 include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryResourceIT.java[]
 ----
 
-Define the [hotspot=systemContainer file=2]`systemContainer` test container to start up the `system-java8` image, the [hotspot=graphqlContainer file=2]`graphqlContainer` test container to start up the `graphql` image, and the [hotspot=libertyContainer file=2]`libertyContainer` test container to start up the `query` image. Make sure that the containers use the same network.
+Define the [hotspot=systemContainer file=2]`systemContainer` test container to start up the `system-java11` image, the [hotspot=graphqlContainer file=2]`graphqlContainer` test container to start up the `graphql` image, and the [hotspot=libertyContainer file=2]`libertyContainer` test container to start up the `query` image. Make sure that the containers use the same network.
 
 The [hotspot=testcontainers file=2]`@Testcontainers` annotation finds all fields that are annotated with the [hotspot=container file=2]`@Container` annotation and calls their container lifecycle methods. The `static` function declaration on each container indicates that this container will be started only once before any test method is executed and stopped after the last test method is executed.
 
-The [hotspot=testGetSystem file=2]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostname` set to `system-java8`.
+The [hotspot=testGetSystem file=2]`testGetSystem()` verifies the `/query/system/{hostname}` endpoint with `hostname` set to `system-java11`.
 
-The [hotspot=testGetSystemLoad file=2]`testGetSystemLoad()` verifies the `/query/systemLoad/{hostnames}` endpoint with `hostnames` set to `system-java8`.
+The [hotspot=testGetSystemLoad file=2]`testGetSystemLoad()` verifies the `/query/systemLoad/{hostnames}` endpoint with `hostnames` set to `system-java11`.
 
 The [hotspot=testEditNote file=2]`testEditNote()` verifies the mutation operation at the `/query/mutation/system/note` endpoint.
 
