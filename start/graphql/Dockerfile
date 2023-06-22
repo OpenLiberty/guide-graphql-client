@@ -2,7 +2,7 @@ ARG JAVA_VERSION=java11
 ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
 ARG GUIDE_NAME=Running GraphQL queries and mutations using a GraphQL client
-FROM icr.io/appcafe/open-liberty:full-${JAVA_VERSION}-openj9-ubi
+FROM icr.io/appcafe/open-liberty:kernel-slim-${JAVA_VERSION}-openj9-ubi
 
 LABEL \
   org.opencontainers.image.authors="Your Name" \
