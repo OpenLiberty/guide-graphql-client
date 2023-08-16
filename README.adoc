@@ -125,11 +125,11 @@ include::finish/query/pom.xml[]
 
 The [hotspot=clientDependenies file=2]`smallrye-graphql-client` dependencies provide the classes that you use to interact with a `graphql` microservice.
 
-To run the service, you must correctly configure the Liberty server.
+To run the service, you must correctly configure the Liberty.
 
 [role="code_command hotspot file=3" ,subs="quotes"]
 ----
-#Replace the server configuration file.#
+#Replace the Liberty server.xml configuration file.#
 `query/src/main/liberty/config/server.xml`
 ----
 
