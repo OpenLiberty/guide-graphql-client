@@ -18,6 +18,6 @@ sed -i "s;FROM icr.io/appcafe/open-liberty:kernel-slim-..JAVA_VERSION.-openj9-ub
 sed -i "s;RUN features.sh;#RUN features.sh;g" system/Dockerfile graphql/Dockerfile query/Dockerfile
 cat system/Dockerfile graphql/Dockerfile query/Dockerfile
 
-docker pull "openliberty/daily:latest"
+docker pull "cp.stg.icr.io/cp/olc/open-liberty-daily:full-java11-openj9-ubi"
 
 sudo ../scripts/testApp.sh
