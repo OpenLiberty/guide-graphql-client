@@ -18,6 +18,8 @@ sed -i "s;FROM icr.io/appcafe/open-liberty:kernel-slim-..JAVA_VERSION.-openj9-ub
 sed -i "s;RUN features.sh;#RUN features.sh;g" system/Dockerfile graphql/Dockerfile query/Dockerfile
 cat system/Dockerfile graphql/Dockerfile query/Dockerfile
 
-docker pull "cp.stg.icr.io/cp/olc/open-liberty-daily:full-java11-openj9-ubi"
+echo "$DOCKER_PASSWORD" | sudo docker login -u "$DOCKER_USERNAME" --password-stdin cp.stg.icr.io
+sudo docker pull -q "cp.stg.icr.io/cp/olc/open-liberty-daily:full-java11-openj9-ubi"
+sudo echo "build level:"; docker inspect --format "{{ index .Config.Labels \"org.opencontainers.image.revision\"}}" cp.stg.icr.io/cp/olc/open-liberty-daily:full-java11-openj9-ubi
 
 sudo ../scripts/testApp.sh
