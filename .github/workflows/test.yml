@@ -59,7 +59,9 @@ jobs:
         if: always()
         run: |
           sudo docker images
-          logsPath=$(find . -name "console.log");
+          logsPath=$(find . -name "console.log" | grep system);
+          sudo cat "$logsPath" | grep Launching
+          logsPath=$(find . -name "console.log" | grep graphql);
           sudo cat "$logsPath" | grep Launching
       - name: Archive server logs if failed
         if: failure()
