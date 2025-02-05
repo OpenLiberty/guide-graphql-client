@@ -1,4 +1,4 @@
-// Copyright (c) 2023 IBM Corporation and others.
+// Copyright (c) 2023, 2025 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -12,7 +12,7 @@
 :page-releasedate: 2022-09-14
 :page-essential: false
 :page-description: Learn how to use the SmallRye GraphQL client's typesafe interface to query and mutate data from multiple microservices.
-:page-tags: ['MicroProfile', 'Jakarta EE']
+:page-tags: ['microprofile', 'jakarta-ee']
 :page-related-guides: ['microprofile-graphql']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
@@ -179,7 +179,15 @@ include::{common-includes}/os-tabs.adoc[]
 ```
 --
 
-[.tab_content.mac_section.linux_section]
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./scripts/startContainers.sh
+```
+--
+
+[.tab_content.linux_section]
 --
 [role='command']
 ```
@@ -331,7 +339,7 @@ include::{common-includes}/os-tabs.adoc[]
 ```
 --
 
-[.tab_content.mac_section.linux_section]
+[.tab_content.mac_section]
 --
 [role='command']
 ```
@@ -339,6 +347,14 @@ include::{common-includes}/os-tabs.adoc[]
 ```
 --
 
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+./scripts/stopContainers.sh
+```
+--
 
 == Testing the application
 
