@@ -12,7 +12,7 @@
 :page-releasedate: 2022-09-14
 :page-essential: false
 :page-description: Learn how to use the SmallRye GraphQL client's typesafe interface to query and mutate data from multiple microservices.
-:page-tags: ['MicroProfile', 'Jakarta EE']
+:page-tags: ['microprofile', 'jakarta-ee']
 :page-related-guides: ['microprofile-graphql']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
