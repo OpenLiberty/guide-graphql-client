@@ -483,6 +483,7 @@ mvnw.cmd verify
 ./mvnw verify
 ```
 --
+endif::[]
 
 ifdef::cloud-hosted[]
 ```bash
