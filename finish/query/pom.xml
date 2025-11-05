@@ -49,12 +49,12 @@
         <dependency>
             <groupId>io.smallrye</groupId>
             <artifactId>smallrye-graphql-client</artifactId>
-            <version>2.16.0</version>
+            <version>2.15.0</version>
         </dependency>
         <dependency>
             <groupId>io.smallrye</groupId>
             <artifactId>smallrye-graphql-client-implementation-vertx</artifactId>
-            <version>2.16.0</version>
+            <version>2.15.0</version>
         </dependency>
         <dependency>
             <groupId>io.smallrye.stork</groupId>
