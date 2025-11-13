@@ -26,9 +26,9 @@ set -euxo pipefail
 
 ./mvnw -ntp -pl query liberty:create liberty:install-feature liberty:deploy
 
-docker pull -q icr.io/appcafe/open-liberty:kernel-slim-java11-openj9-ubi
+docker pull -q icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi
 
-docker build -t system:1.0-java11-SNAPSHOT --build-arg JAVA_VERSION=java11 system/.
+docker build -t system:1.0-java17-SNAPSHOT --build-arg JAVA_VERSION=java17 system/.
 docker build -t system:1.0-java17-SNAPSHOT --build-arg JAVA_VERSION=java17 system/.
 docker build -t graphql:1.0-SNAPSHOT graphql/.
 docker build -t query:1.0-SNAPSHOT query/.

@@ -16,20 +16,20 @@ sed -i "\#<looseApplication>false</looseApplication>#a<install><runtimeUrl>https
 cat query/pom.xml graphql/pom.xml system/pom.xml
 
 if [[ "$OL_LEVEL" != "" ]]; then
-  sed -i "s;FROM icr.io/appcafe/open-liberty:kernel-slim-..JAVA_VERSION.-openj9-ubi;FROM cp.stg.icr.io/cp/olc/open-liberty-vnext:$OL_LEVEL-full-java11-openj9-ubi;g" system/Dockerfile graphql/Dockerfile query/Dockerfile
+  sed -i "s;FROM icr.io/appcafe/open-liberty:kernel-slim-..JAVA_VERSION.-openj9-ubi;FROM cp.stg.icr.io/cp/olc/open-liberty-vnext:$OL_LEVEL-full-java17-openj9-ubi;g" system/Dockerfile graphql/Dockerfile query/Dockerfile
 else
-  sed -i "s;FROM icr.io/appcafe/open-liberty:kernel-slim-..JAVA_VERSION.-openj9-ubi;FROM cp.stg.icr.io/cp/olc/open-liberty-daily:full-java11-openj9-ubi;g" system/Dockerfile graphql/Dockerfile query/Dockerfile
+  sed -i "s;FROM icr.io/appcafe/open-liberty:kernel-slim-..JAVA_VERSION.-openj9-ubi;FROM cp.stg.icr.io/cp/olc/open-liberty-daily:full-java17-openj9-ubi;g" system/Dockerfile graphql/Dockerfile query/Dockerfile
 fi
 sed -i "s;RUN features.sh;#RUN features.sh;g" system/Dockerfile graphql/Dockerfile query/Dockerfile
 cat system/Dockerfile graphql/Dockerfile query/Dockerfile
 
 echo "$DOCKER_PASSWORD" | sudo docker login -u "$DOCKER_USERNAME" --password-stdin cp.stg.icr.io
 if [[ "$OL_LEVEL" != "" ]]; then
-  sudo docker pull -q "cp.stg.icr.io/cp/olc/open-liberty-vnext:$OL_LEVEL-full-java11-openj9-ubi"
-  sudo echo "build level:"; docker inspect --format "{{ index .Config.Labels \"org.opencontainers.image.revision\"}}" cp.stg.icr.io/cp/olc/open-liberty-vnext:$OL_LEVEL-full-java11-openj9-ubi
+  sudo docker pull -q "cp.stg.icr.io/cp/olc/open-liberty-vnext:$OL_LEVEL-full-java17-openj9-ubi"
+  sudo echo "build level:"; docker inspect --format "{{ index .Config.Labels \"org.opencontainers.image.revision\"}}" cp.stg.icr.io/cp/olc/open-liberty-vnext:$OL_LEVEL-full-java17-openj9-ubi
 else
-  sudo docker pull -q "cp.stg.icr.io/cp/olc/open-liberty-daily:full-java11-openj9-ubi"
-  sudo echo "build level:"; docker inspect --format "{{ index .Config.Labels \"org.opencontainers.image.revision\"}}" cp.stg.icr.io/cp/olc/open-liberty-daily:full-java11-openj9-ubi
+  sudo docker pull -q "cp.stg.icr.io/cp/olc/open-liberty-daily:full-java17-openj9-ubi"
+  sudo echo "build level:"; docker inspect --format "{{ index .Config.Labels \"org.opencontainers.image.revision\"}}" cp.stg.icr.io/cp/olc/open-liberty-daily:full-java17-openj9-ubi
 fi
 
 sudo ../scripts/testApp.sh

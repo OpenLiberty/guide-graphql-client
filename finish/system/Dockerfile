@@ -1,4 +1,4 @@
-ARG JAVA_VERSION=java11
+ARG JAVA_VERSION=java17
 ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
 ARG GUIDE_NAME=Running GraphQL queries and mutations using a GraphQL client
@@ -13,7 +13,7 @@ LABEL \
   org.opencontainers.image.revision="$REVISION" \
   vendor="Open Liberty" \
   name="system" \
-  version="$VERSION-java11-$REVISION" \
+  version="$VERSION-java17-$REVISION" \
   summary="The system microservice from the $GUIDE_NAME guide" \
   description="This image contains the system microservice running with the Open Liberty runtime."
 

@@ -1,4 +1,4 @@
-ARG JAVA_VERSION=java11
+ARG JAVA_VERSION=java17
 ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
 ARG GUIDE_NAME=Running GraphQL queries and mutations using a GraphQL client
