@@ -1,4 +1,6 @@
 #!/bin/bash
+sudo chown root:docker $(id -un) 2>/dev/null || true
+sudo chmod 666 /var/run/docker.sock 2>/dev/null || true
 set -euxo pipefail
 docker version
 docker ps
