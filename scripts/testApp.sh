@@ -1,5 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
+docker version
+docker ps
 ./mvnw -version
 
 ./scripts/packageApps.sh
