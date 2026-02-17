@@ -35,4 +35,5 @@ docker build -t system:1.0-java17-SNAPSHOT --build-arg JAVA_VERSION=java17 syste
 docker build -t graphql:1.0-SNAPSHOT graphql/.
 docker build -t query:1.0-SNAPSHOT query/.
 
+docker ps
 ./mvnw -ntp -pl query verify
