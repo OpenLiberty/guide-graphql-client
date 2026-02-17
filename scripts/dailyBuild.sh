@@ -19,4 +19,4 @@ if [[ "$DOCKER_USERNAME" != "" ]]; then
     cat system/Dockerfile graphql/Dockerfile query/Dockerfile
 fi
 
-sudo ../scripts/testApp.sh
+../scripts/testApp.sh
