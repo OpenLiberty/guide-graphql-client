@@ -1,8 +1,7 @@
 #!/bin/bash
-sudo chown root:docker $(id -un) 2>/dev/null || true
-sudo chmod 666 /var/run/docker.sock 2>/dev/null || true
-
-echo api.version=1.44 >> ~/.docker-java.properties
+DOCKER_VERSION=$(docker version --format '{{.Server.APIVersion}}')
+echo "Docker version: $DOCKER_VERSION"
+echo "api.version=$DOCKER_VERSION" >> ~/.docker-java.properties
 
 set -euxo pipefail
 docker version
