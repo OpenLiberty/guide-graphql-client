@@ -10,7 +10,8 @@ if [[ "$CLIENT_VERSION" < "$SERVER_VERSION" || "$CLIENT_VERSION" == "$SERVER_VER
 else 
     SUPPORTED_VERSION="$SERVER_VERSION"
     echo "Server is smaller"
-    
+fi
+echo "supported: $SUPPORTED_VERSION"
 echo "api.version=$SUPPORTED_VERSION" >> ~/.docker-java.properties
 
 set -euxo pipefail
