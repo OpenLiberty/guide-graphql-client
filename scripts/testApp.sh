@@ -11,7 +11,7 @@ else
     SUPPORTED_VERSION="$SERVER_VERSION"
     echo "Server is smaller"
     
-echo "api.version=$SERVER_VERSION" >> ~/.docker-java.properties
+echo "api.version=$SUPPORTED_VERSION" >> ~/.docker-java.properties
 
 set -euxo pipefail
 docker version
