@@ -1,7 +1,17 @@
 #!/bin/bash
-DOCKER_VERSION=$(docker version --format '{{.Server.APIVersion}}')
-echo "Docker version: $DOCKER_VERSION"
-echo "api.version=$DOCKER_VERSION" >> ~/.docker-java.properties
+SERVER_VERSION=$(docker version --format '{{.Server.APIVersion}}')
+CLIENT_VERSION=$(docker version --format '{{.Client.APIVersion}}')
+echo "Server version: $SERVER_VERSION"
+echo "Client version: $CLIENT_VERSION"
+
+if [[ "$CLIENT_VERSION" < "$SERVER_VERSION" || "$CLIENT_VERSION" == "$SERVER_VERSION" ]]; then
+    SUPPORTED_VERSION="$CLIENT_VERSION"
+    echo "Client <= Server" 
+else 
+    SUPPORTED_VERSION="$SERVER_VERSION"
+    echo "Server is smaller"
+    
+echo "api.version=$SERVER_VERSION" >> ~/.docker-java.properties
 
 set -euxo pipefail
 docker version
